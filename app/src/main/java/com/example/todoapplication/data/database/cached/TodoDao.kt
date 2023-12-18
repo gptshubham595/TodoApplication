@@ -6,22 +6,23 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.todoapplication.data.database.interfaces.ITodoDB
 import com.example.todoapplication.data.models.TodoItem
 
 @Dao
-interface TodoDao {
+interface TodoDao: ITodoDB {
 
     @Query("Select * from todo_table")
-    suspend fun fetchAllTodoItems(): List<TodoItem>
+    override suspend fun fetchAllTodoItems(): List<TodoItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addTodoItem(todoItem: TodoItem): Long
+    override suspend fun addTodoItem(todoItem: TodoItem): Long
 
     @Query("Delete from todo_table where id = :todoId")
-    suspend fun deleteTodoItem(todoId: Long): Int
+    override suspend fun deleteTodoItem(todoId: Long): Int
 
     @Update
-    suspend fun updateTodoItem(todoItem: TodoItem): Int
+    override suspend fun updateTodoItem(todoItem: TodoItem): Int
 
 
 }

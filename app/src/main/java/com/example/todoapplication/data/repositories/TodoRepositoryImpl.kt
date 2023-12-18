@@ -3,7 +3,9 @@ package com.example.todoapplication.data.repositories
 import com.example.todoapplication.common.Utils.Either
 import com.example.todoapplication.data.database.api.ApiInterface
 import com.example.todoapplication.data.database.cached.TodoDao
+import com.example.todoapplication.data.database.interfaces.ITodoDB
 import com.example.todoapplication.data.models.TodoItem
+import com.example.todoapplication.di.qualifier.ProcessorRoomDB
 import com.example.todoapplication.domain.interfaces.repositories.ITodoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,8 +15,8 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class TodoRepositoryImpl @Inject constructor(
-    private val todoDao: TodoDao,
-    private val apiInterface: ApiInterface
+    @ProcessorRoomDB private val todoDao: ITodoDB, // IDatabase
+    private val apiInterface: ApiInterface //IApi
 ) : ITodoRepository {
     override suspend fun getTodoList(): Either<Exception, Flow<List<TodoItem>>> {
         return try {

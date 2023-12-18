@@ -1,4 +1,4 @@
-package com.example.todoapplication.di
+package com.example.todoapplication.di.module
 
 import android.app.Application
 import androidx.room.Room
@@ -6,9 +6,11 @@ import com.example.todoapplication.common.APIConstants.BASE_URl
 import com.example.todoapplication.common.Constant.Companion.TODO_DATABASE_NAME
 import com.example.todoapplication.data.database.api.ApiInterceptor
 import com.example.todoapplication.data.database.api.ApiInterface
-import com.example.todoapplication.data.database.cached.TodoDao
 import com.example.todoapplication.data.database.cached.TodoDatabase
+import com.example.todoapplication.data.database.interfaces.ITodoDB
 import com.example.todoapplication.data.repositories.TodoRepositoryImpl
+import com.example.todoapplication.di.qualifier.ProcessorRoomDB
+import com.example.todoapplication.di.qualifier.ProcessorSharedPref
 import com.example.todoapplication.domain.interfaces.repositories.ITodoRepository
 import com.example.todoapplication.domain.usecases.AddTodoItemUseCase
 import com.example.todoapplication.domain.usecases.GetTodoItemsUseCase
@@ -16,7 +18,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,7 +37,15 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoDao(todoDatabase: TodoDatabase): TodoDao {
+    @ProcessorRoomDB
+    fun provideTodoDao(todoDatabase: TodoDatabase): ITodoDB {
+        return todoDatabase.getTodoDao()
+    }
+
+    @Provides
+    @Singleton
+    @ProcessorSharedPref
+    fun provideSharedPrefTodoDao(todoDatabase: TodoDatabase): ITodoDB {
         return todoDatabase.getTodoDao()
     }
 
@@ -64,7 +73,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoRepository(todoDao: TodoDao, apiInterface: ApiInterface): ITodoRepository {
+    fun provideTodoRepository(@ProcessorRoomDB todoDao: ITodoDB, apiInterface: ApiInterface): ITodoRepository {
         return TodoRepositoryImpl(todoDao, apiInterface)
     }
 
