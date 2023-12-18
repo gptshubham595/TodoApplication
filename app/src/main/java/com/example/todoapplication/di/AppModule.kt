@@ -2,7 +2,7 @@ package com.example.todoapplication.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.todoapplication.common.APIConstants.Companion.BASE_URl
+import com.example.todoapplication.common.APIConstants.BASE_URl
 import com.example.todoapplication.common.Constant.Companion.TODO_DATABASE_NAME
 import com.example.todoapplication.data.database.api.ApiInterceptor
 import com.example.todoapplication.data.database.api.ApiInterface

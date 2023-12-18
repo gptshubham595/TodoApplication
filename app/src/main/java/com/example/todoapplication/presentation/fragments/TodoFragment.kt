@@ -3,6 +3,7 @@ package com.example.todoapplication.presentation.fragments
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,12 +54,38 @@ class TodoFragment : Fragment() {
         initView()
         initObserver()
         initBroadCast()
+        initAdapter()
+        initListener()
 
         sampleEventBus.register(MessageEvent::class.java){
             showToast(it)
         }
 
         EventBus.getDefault().register(this)
+    }
+
+    private fun initAdapter() {
+        val todoList = listOf(
+            TodoItem(1, "Buy groceries", Utils.TodoStatus.PENDING),
+            TodoItem(2, "Read a book", Utils.TodoStatus.PENDING),
+            // Add more todos as needed
+        )
+        val recyclerView: RecyclerView = binding.todoRecyclerView
+        val adapter = TodoAdapter()
+        adapter.updateList(todoList)
+        recyclerView.adapter = adapter
+    }
+
+    private fun initListener() {
+        binding.sendBroadCast.setOnClickListener {
+            Log.d("GlobalBroadcast", "Firing Global Broadcast")
+//            val localIntentFilter = Intent(LOCAL_TODO_ACTION)
+//            localIntentFilter.putExtra(EXTRA_LOCAL_TODO_ACTION, "Hello")
+//            LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(localIntentFilter)
+            val globalIntent = Intent(GLOBAL_TODO_ACTION)
+            globalIntent.putExtra(EXTRA_GLOBAL_TODO_ACTION, "Hello $GLOBAL_TODO_ACTION")
+            requireActivity().sendBroadcast(globalIntent)
+        }
     }
 
     private fun showToast(it: MessageEvent) {
@@ -86,21 +113,14 @@ class TodoFragment : Fragment() {
     }
 
     private fun initView() {
-        val todoList = listOf(
-            TodoItem(1, "Buy groceries", Utils.TodoStatus.PENDING),
-            TodoItem(2, "Read a book", Utils.TodoStatus.PENDING),
-            // Add more todos as needed
-        )
-        val recyclerView: RecyclerView = binding.todoRecyclerView
-        val adapter = TodoAdapter()
-        adapter.updateList(todoList)
-        recyclerView.adapter = adapter
+
     }
 
     private fun initObserver() {
         todoViewModel.todoItemsListLiveData.observe(requireActivity(), Observer {
             Toast.makeText(requireContext(), it.task, Toast.LENGTH_SHORT).show()
             // send broadcast
+            Log.d("LocalBroadcast", "Firing Local Broadcast")
             val localIntentFilter = Intent(LOCAL_TODO_ACTION)
             localIntentFilter.putExtra(EXTRA_LOCAL_TODO_ACTION, it.task)
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(localIntentFilter)

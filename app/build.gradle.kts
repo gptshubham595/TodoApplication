@@ -29,17 +29,26 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures{
-        dataBinding = true
+        buildConfig = true
+        dataBinding = true // enable data binding
     }
+    buildToolsVersion = "34.0.0"
+    ndkVersion = "25.2.9519653"
 }
 
 dependencies {
@@ -69,4 +78,5 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.2.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 }

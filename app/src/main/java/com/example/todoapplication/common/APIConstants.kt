@@ -2,11 +2,10 @@ package com.example.todoapplication.common
 
 import com.google.gson.annotations.SerializedName
 
-class APIConstants {
-    companion object {
+object APIConstants {
 
-        const val BASE_URl = ""
-        const val POSTS_ENDPOINT = ""
+        const val BASE_URl = "https://jsonplaceholder.typicode.com"
+        const val POSTS_ENDPOINT = "/posts"
         const val TOKEN = ""
 
         data class GenericResponse<T>(
@@ -16,4 +15,3 @@ class APIConstants {
             val data: T
         )
     }
-}
