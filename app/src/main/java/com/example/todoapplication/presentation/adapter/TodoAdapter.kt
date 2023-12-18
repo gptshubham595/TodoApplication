@@ -10,7 +10,7 @@ import com.example.todoapplication.common.Utils
 import com.example.todoapplication.data.models.TodoItem
 import com.example.todoapplication.databinding.LayoutListItemBinding
 
-class TodoAdapter() :
+class TodoAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val todoList = mutableListOf<TodoItem>()
@@ -18,6 +18,16 @@ class TodoAdapter() :
     fun updateList(list: List<TodoItem>) {
         val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
         todoList.clear()
+        todoList.addAll(list)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun addAItemToList(item: TodoItem) {
+        todoList.add(item)
+        notifyItemInserted(todoList.size - 1)
+    }
+    fun addAllItemToList(list: List<TodoItem>) {
+        val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
         todoList.addAll(list)
         diffResult.dispatchUpdatesTo(this)
     }
@@ -73,7 +83,7 @@ class TodoAdapter() :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return todoList[position].status.ordinal
+        return (todoList[position].id % 2).toInt()
     }
 
     override fun getItemCount(): Int {

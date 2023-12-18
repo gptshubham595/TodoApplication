@@ -6,6 +6,7 @@ import com.example.todoapplication.data.database.cached.TodoDao
 import com.example.todoapplication.data.models.TodoItem
 import com.example.todoapplication.domain.interfaces.repositories.ITodoRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -17,8 +18,12 @@ class TodoRepositoryImpl @Inject constructor(
 ) : ITodoRepository {
     override suspend fun getTodoList(): Either<Exception, Flow<List<TodoItem>>> {
         return try {
-            apiInterface.getPosts()
-            Either.Success(flow { emit(todoDao.fetchAllTodoItems()) }.flowOn(Dispatchers.IO))
+            Either.Success(flow {
+
+                emit(todoDao.fetchAllTodoItems())
+                emit(apiInterface.getPosts())
+
+            }.flowOn(Dispatchers.IO))
         } catch (e: Exception) {
             Either.Error(e)
         }

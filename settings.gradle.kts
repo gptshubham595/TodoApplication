@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "TodoApplication"
 include(":app")
 include(":macro_benchmark")
+include(":presentation")

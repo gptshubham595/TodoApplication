@@ -11,6 +11,6 @@ interface ApiInterface {
     @GET(APIConstants.POSTS_ENDPOINT)
     suspend fun getPosts(
 //        @Header(APIConstants.TOKEN) token: String
-    ) : GenericResponse<List<TodoItem>>
+    ) : List<TodoItem>
 
 }

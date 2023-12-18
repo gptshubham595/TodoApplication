@@ -11,7 +11,6 @@ import com.example.todoapplication.R
 import com.example.todoapplication.databinding.ActivityMainBinding
 import com.example.todoapplication.presentation.fragments.TodoFragment
 import com.example.todoapplication.presentation.service.BasicService
-import com.example.todoapplication.presentation.viewModels.TodoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 

@@ -1,8 +1,10 @@
 package com.example.todoapplication.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.todoapplication.data.models.TodoItem
 import com.example.todoapplication.domain.usecases.AddTodoItemUseCase
 import com.example.todoapplication.domain.usecases.GetTodoItemsUseCase
@@ -11,6 +13,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import org.greenrobot.eventbus.EventBus
@@ -24,11 +28,8 @@ class TodoViewModel @Inject constructor(
     private val addTodoItemUseCase: AddTodoItemUseCase
 ) : ViewModel() {
 
-    val viewModelScope = CoroutineScope(Dispatchers.IO) + Job()
-
-
     private val _todoItemsListLiveData = MutableLiveData<List<TodoItem>>()
-    val todoItemsListLiveData = _todoItemsListLiveData as LiveData<TodoItem>
+    val todoItemsListLiveData = _todoItemsListLiveData as LiveData<List<TodoItem>>
 
     fun getTodoItems() {
         viewModelScope.launch {
@@ -38,6 +39,7 @@ class TodoViewModel @Inject constructor(
                 onSuccess = {
                     this.launch {
                         it.collect {
+                            Log.d("TodoViewModel", "collected getTodoItems: $it")
                             _todoItemsListLiveData.postValue(it)
                             EventBus.getDefault().post(DataEvent("hi"))
                         }

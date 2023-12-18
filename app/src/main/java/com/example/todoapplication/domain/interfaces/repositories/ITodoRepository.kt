@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ITodoRepository {
 
-    suspend fun getTodoList(): Utils.Either<Exception,Flow<List<TodoItem>>>
+    suspend fun getTodoList(): Either<Exception,Flow<List<TodoItem>>>
 
     suspend fun addTodoItem(todoItem: TodoItem): Either<Exception,Flow<Long>>
 
