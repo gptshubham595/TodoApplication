@@ -77,11 +77,11 @@ object AppModule {
         return TodoRepositoryImpl(todoDao, apiInterface)
     }
 
-    @Provides
-    @Singleton
-    fun provideGetTodoItemsUseCase(todoRepositoryImpl: ITodoRepository): GetTodoItemsUseCase {
-        return GetTodoItemsUseCase(todoRepositoryImpl)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideGetTodoItemsUseCase(todoRepositoryImpl: ITodoRepository): GetTodoItemsUseCase {
+//        return GetTodoItemsUseCase(todoRepositoryImpl)
+//    }
 
     @Provides
     @Singleton

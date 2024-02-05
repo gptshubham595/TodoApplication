@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var basicService: BasicService
 
     private var isServiceBound = false
-
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             isServiceBound = true

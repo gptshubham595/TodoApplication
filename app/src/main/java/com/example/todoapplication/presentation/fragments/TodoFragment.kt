@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -27,18 +28,28 @@ import com.example.todoapplication.presentation.adapter.TodoAdapter
 import com.example.todoapplication.presentation.broadcast.LocalBroadCast
 import com.example.todoapplication.presentation.broadcast.TodoBroadCastListener
 import com.example.todoapplication.presentation.viewModels.DataEvent
+import com.example.todoapplication.presentation.viewModels.ModelClass
 import com.example.todoapplication.presentation.viewModels.TodoViewModel
+import com.example.todoapplication.presentation.viewModels.TodoViewModel2
+import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class TodoFragment : Fragment() {
-    private lateinit var todoViewModel: TodoViewModel
+
+    private val todoViewModel: TodoViewModel by viewModels()
+    private val todoViewModel2: TodoViewModel2 by viewModels()
     private lateinit var binding: FragmentTodoBinding
     private lateinit var localBroadCast: LocalBroadCast
     private val sampleEventBus = SampleEventBus()
 
     private val adapter: TodoAdapter by lazy { TodoAdapter() }
+
+    @Inject
+    lateinit var modelClass: ModelClass
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,8 +65,10 @@ class TodoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        todoViewModel = ViewModelProvider(requireActivity())[TodoViewModel::class.java]
+//        todoViewModel = ViewModelProvider(requireActivity())[TodoViewModel::class.java]
         todoViewModel.getTodoItems()
+        todoViewModel2.getTodoItems()
+        modelClass.getTodoItems()
 
         initView()
         initObserver()
@@ -127,7 +140,7 @@ class TodoFragment : Fragment() {
         todoViewModel.todoItemsListLiveData.observe(viewLifecycleOwner) {
             Log.d("TodoViewModel", "observed getTodoItems: $it")
             adapter.addAllItemToList(it)
-            Toast.makeText(requireContext(), it[0].task, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it?.get(0)?.task, Toast.LENGTH_SHORT).show()
             // send broadcast
             Log.d("LocalBroadcast", "Firing Local Broadcast")
             val localIntentFilter = Intent(LOCAL_TODO_ACTION)

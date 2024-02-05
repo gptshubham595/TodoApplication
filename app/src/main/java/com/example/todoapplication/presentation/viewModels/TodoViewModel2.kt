@@ -13,20 +13,19 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
-class DataEvent(val data: String)
 
 @HiltViewModel
-class TodoViewModel @Inject constructor(
+class TodoViewModel2 @Inject constructor(
     private val getTodoItemsUseCase: GetTodoItemsUseCase,
     private val addTodoItemUseCase: AddTodoItemUseCase
 ) : ViewModel() {
 
     private val _todoItemsListLiveData = MutableLiveData<List<TodoItem>>()
     val todoItemsListLiveData = _todoItemsListLiveData as LiveData<List<TodoItem>>
-
     init {
-        Log.d("viewModel1","${System.identityHashCode(getTodoItemsUseCase)}")
+        Log.d("viewModel2","${System.identityHashCode(getTodoItemsUseCase)}")
     }
+
     fun getTodoItems() {
         viewModelScope.launch {
             getTodoItemsUseCase(

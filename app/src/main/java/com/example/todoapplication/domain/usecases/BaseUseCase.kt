@@ -22,5 +22,9 @@ abstract class BaseUseCase<in Params, out Type> where Type : Any? {
                 is Utils.Either.Success -> onSuccess(result.data)
             }
         }
+            // may or may-not optimal
+        .invokeOnCompletion {
+            job.cancel()
+        }
     }
 }
