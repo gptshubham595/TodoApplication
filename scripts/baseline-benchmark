@@ -1,0 +1,9 @@
+#!/bin/bash
+
+./gradlew :macro_benchmark:allDevicesBenchmarkAndroidTest --rerun-tasks -P android.testInstrumentationRunnerArguments.class=com.ola.benchmark.BaselineProfileGenerator
+
+
+cp -R  "benchmark/build/outputs/managed_device_android_test_additional_output/benchmark/flavors/production/pixel2api34/BaselineProfileGenerator_generateBaselineProfile-baseline-prof.txt" "app/src/main/baseline-prof.txt"
+cp -R  "benchmark/build/outputs/managed_device_android_test_additional_output/benchmark/flavors/production/pixel2api34/BaselineProfileGenerator_generateBaselineProfile-startup-prof.txt" "app/src/main/startup-prof.txt"
+
+ ./gradlew installDemoRelease -P android.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile

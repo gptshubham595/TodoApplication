@@ -1,4 +1,5 @@
-import com.diffplug.gradle.spotless.SpotlessExtension
+import com.android.build.api.dsl.ManagedVirtualDevice
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
@@ -7,7 +8,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
-    id("com.diffplug.spotless")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 android {
@@ -20,8 +21,16 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
+        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR, DEBUGGABLE"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    testOptions.managedDevices.devices {
+        create<ManagedVirtualDevice>("pixel2api34") {
+            device = "Pixel 2"
+            apiLevel = 34
+            systemImageSource = "aosp-atd"
+        }
     }
 
     buildTypes {
@@ -29,7 +38,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         create("benchmark") {
@@ -46,7 +55,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures{
+    buildFeatures {
         buildConfig = true
         dataBinding = true // enable data binding
     }
@@ -71,8 +80,8 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.50")
     ksp("com.google.dagger:hilt-android-compiler:2.50")
-    ksp("androidx.hilt:hilt-compiler:1.1.0")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
 
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
@@ -84,23 +93,33 @@ dependencies {
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 }
 
-configure<SpotlessExtension> {
-    kotlin {
-        target("**/*.kt")
-        targetExclude("**/build/**/*.kt")
-        ktlint()//.editorConfigPath("$projectDir/.editorconfig")
-        trimTrailingWhitespace()
-        indentWithSpaces(2)
-        endWithNewline()
-        licenseHeaderFile(File("${project.rootDir}/spotless/copyright.kt"))
+
+ktlint {
+    version.set("0.48.2")
+    debug.set(true)
+    verbose.set(true)
+    android.set(true)
+    outputToConsole.set(true)
+    outputColorName.set("RED")
+    ignoreFailures.set(true)
+    enableExperimentalRules.set(true)
+    additionalEditorconfig.set( // not supported until ktlint 0.49
+        mapOf(
+            "max_line_length" to "20"
+        )
+    )
+    disabledRules.set(setOf("final-newline")) // not supported with ktlint 0.48+
+    baseline.set(file("$projectDir/config/ktlint-baseline.xml"))
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
+        reporter(ReporterType.SARIF)
     }
-    kotlinGradle {
-        target("**/*.kts")
-        targetExclude("**/build/**/*.kts")
-        ktlint()//.editorConfigPath("$projectDir/.editorconfig")
-        trimTrailingWhitespace()
-        indentWithSpaces(2)
-        endWithNewline()
-        licenseHeaderFile(rootProject.file("spotless/copyright.kts"), "(^(?![\\/ ]\\*).*$)")
+    kotlinScriptAdditionalPaths {
+        include(fileTree("scripts/"))
+    }
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
     }
 }

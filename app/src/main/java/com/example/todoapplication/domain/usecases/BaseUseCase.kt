@@ -23,8 +23,8 @@ abstract class BaseUseCase<in Params, out Type> where Type : Any? {
             }
         }
             // may or may-not optimal
-        .invokeOnCompletion {
-            job.cancel()
-        }
+            .invokeOnCompletion {
+                job.cancel()
+            }
     }
 }

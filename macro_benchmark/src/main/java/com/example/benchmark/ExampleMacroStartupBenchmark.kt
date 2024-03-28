@@ -36,14 +36,11 @@ class ExampleMacroStartupBenchmark {
             packageName = "com.example.todoapplication",
             metrics = listOf(
                 StartupTimingMetric(),
-                PowerMetric(PowerMetric.Type.Battery()),
-                PowerMetric(PowerMetric.Type.Power()),
-                PowerMetric(PowerMetric.Type.Energy())
             ),
             iterations = 5,
             startupMode = StartupMode.COLD
         ) {
-            pressHome(50000)
+            pressHome(1000)
             startActivityAndWait()
         }
     } else {

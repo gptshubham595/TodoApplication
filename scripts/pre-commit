@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "............Starting ktlint check......................................"
+
+filesToFormat="$(git status -s)"
+echo "Files Modified"
+echo "$filesToFormat"
+
+echo "......................................................................."
+echo "......................................................................."
+
+
+echo "Started Formitting...."
+
+git config core.hooksPath .git/hooks
+
+./gradlew ktlintFormat
+
+
+echo ".....Staging all file changed during ktlint formatting................."
+
+#git add .
+
+echo "Completed.............................................................."
