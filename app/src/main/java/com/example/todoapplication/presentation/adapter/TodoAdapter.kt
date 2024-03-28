@@ -1,11 +1,9 @@
 package com.example.todoapplication.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapplication.R
 import com.example.todoapplication.common.Utils
 import com.example.todoapplication.data.models.TodoItem
 import com.example.todoapplication.databinding.LayoutListItemBinding
@@ -115,7 +113,7 @@ class TodoAdapter :
 
 class TodoDiffUtils(
     private val oldList: List<TodoItem>,
-    private val newList: List<TodoItem>,
+    private val newList: List<TodoItem>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
@@ -130,7 +128,9 @@ class TodoDiffUtils(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return (oldList[oldItemPosition].task == newList[newItemPosition].task &&
-                oldList[oldItemPosition].status == newList[newItemPosition].status)
+        return (
+            oldList[oldItemPosition].task == newList[newItemPosition].task &&
+                oldList[oldItemPosition].status == newList[newItemPosition].status
+            )
     }
 }

@@ -59,7 +59,6 @@ dependencies {
     baselineProfile(project(":macro_benchmark"))
 }
 
-
 ktlint {
     version.set("0.48.2")
     debug.set(true)
@@ -75,7 +74,7 @@ ktlint {
         )
     )
     disabledRules.set(setOf("final-newline")) // not supported with ktlint 0.48+
-    baseline.set(file("${projectDir}/config/ktlint/baseline.xml"))
+    baseline.set(file("$projectDir/config/ktlint/baseline.xml"))
     reporters {
         reporter(ReporterType.PLAIN)
         reporter(ReporterType.CHECKSTYLE)

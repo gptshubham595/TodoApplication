@@ -21,7 +21,4 @@ class Profile {
     fun likeContent() {
         postObservable.increaseLikeCount()
     }
-
-
 }
-

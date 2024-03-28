@@ -2,15 +2,14 @@ package com.example.todoapplication.presentation.service
 
 import android.app.Service
 import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
 
-open class BasicService: Service() {
+open class BasicService : Service() {
     private val binder = BasicBinder()
 
     inner class BasicBinder : Binder() {
-        fun getService() : BasicService {
+        fun getService(): BasicService {
             return this@BasicService
         }
     }
@@ -31,7 +30,7 @@ open class BasicService: Service() {
         super.onDestroy()
     }
 
-    companion object{
+    companion object {
         const val TAG = "BasicService"
     }
 }

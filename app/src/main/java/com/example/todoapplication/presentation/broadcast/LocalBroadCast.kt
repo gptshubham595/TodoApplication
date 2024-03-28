@@ -16,7 +16,6 @@ class LocalBroadCast(private val listener: TodoBroadCastListener) : BroadcastRec
             }
         }
     }
-
 }
 
 interface TodoBroadCastListener {

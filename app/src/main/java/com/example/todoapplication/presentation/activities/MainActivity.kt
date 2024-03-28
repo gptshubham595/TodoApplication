@@ -3,16 +3,14 @@ package com.example.todoapplication.presentation.activities
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.todoapplication.R
 import com.example.todoapplication.databinding.ActivityMainBinding
 import com.example.todoapplication.presentation.fragments.TodoFragment
 import com.example.todoapplication.presentation.service.BasicService
 import dagger.hilt.android.AndroidEntryPoint
-import org.greenrobot.eventbus.EventBus
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,13 +24,11 @@ class MainActivity : AppCompatActivity() {
             isServiceBound = true
             val binder = service as BasicService.BasicBinder
             basicService = binder.getService()
-
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
             isServiceBound = false
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragments() {
         val todoFragment = TodoFragment()
-        val transactionManager= supportFragmentManager.beginTransaction()
+        val transactionManager = supportFragmentManager.beginTransaction()
         transactionManager.add(R.id.fragmentContainer, todoFragment)
         transactionManager.addToBackStack("TODO_FRAGMENT")
         transactionManager.commit()
@@ -59,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(isServiceBound){
+        if (isServiceBound) {
             unbindService(serviceConnection)
             isServiceBound = false
         }

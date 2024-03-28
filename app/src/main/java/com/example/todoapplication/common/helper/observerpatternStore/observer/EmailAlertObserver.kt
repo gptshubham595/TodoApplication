@@ -3,11 +3,10 @@ package com.example.todoapplication.common.helper.observerpatternStore.observer
 import android.util.Log
 
 class EmailAlertObserver constructor(
-    email: String,
+    email: String
 ) : NotificationAlertObserver {
 
     private var email: String? = email
-
 
     override fun update() {
         sendMail(email)

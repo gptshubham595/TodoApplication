@@ -3,7 +3,7 @@ package com.example.todoapplication.data.database.api
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ApiInterceptor: Interceptor {
+class ApiInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalReq = chain.request()
         val modifiedRequest = originalReq.newBuilder().header("token", "").build()
@@ -11,5 +11,4 @@ class ApiInterceptor: Interceptor {
         val response = chain.proceed(modifiedRequest)
         return response
     }
-
 }

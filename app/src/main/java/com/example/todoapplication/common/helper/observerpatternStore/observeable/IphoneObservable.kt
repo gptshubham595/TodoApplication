@@ -2,9 +2,9 @@ package com.example.todoapplication.common.helper.observerpatternStore.observeab
 
 import com.example.todoapplication.common.helper.observerpatternStore.observer.NotificationAlertObserver
 
-class IphoneObservable<T>: StockObservable<T> {
+class IphoneObservable<T> : StockObservable<T> {
 
-    private var stockCount = 0;
+    private var stockCount = 0
     private val observersList = mutableListOf<T>()
 
     override fun addObserver(observer: T) {
@@ -17,15 +17,16 @@ class IphoneObservable<T>: StockObservable<T> {
 
     override fun notifySubscribers() {
         observersList.forEach {
-            if(it is NotificationAlertObserver){
+            if (it is NotificationAlertObserver) {
                 it.update()
             }
         }
     }
 
     override fun setCount(countAdded: Int) {
-        if(stockCount == 0)
+        if (stockCount == 0) {
             notifySubscribers()
+        }
         stockCount += countAdded
     }
 

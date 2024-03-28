@@ -8,4 +8,3 @@ interface IPostObservable<T> {
     fun increaseLikeCount()
     fun getLikeCount(): Int
 }
-

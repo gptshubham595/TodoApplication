@@ -19,7 +19,4 @@ class Store {
     fun stockEmpty() {
         iPhoneObservable.setCount(0)
     }
-
-
 }
-

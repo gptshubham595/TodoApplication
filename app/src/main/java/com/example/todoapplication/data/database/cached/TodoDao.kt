@@ -1,7 +1,6 @@
 package com.example.todoapplication.data.database.cached
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -10,7 +9,7 @@ import com.example.todoapplication.data.database.interfaces.ITodoDB
 import com.example.todoapplication.data.models.TodoItem
 
 @Dao
-interface TodoDao: ITodoDB {
+interface TodoDao : ITodoDB {
 
     @Query("Select * from todo_table")
     override suspend fun fetchAllTodoItems(): List<TodoItem>
@@ -23,6 +22,4 @@ interface TodoDao: ITodoDB {
 
     @Update
     override suspend fun updateTodoItem(todoItem: TodoItem): Int
-
-
 }

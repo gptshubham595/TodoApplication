@@ -25,7 +25,9 @@ class RideSharingApp {
         } else {
             println("Shared Rides:")
             for (ride in rides) {
-                println("Ride ID: ${ride.id}, From: ${ride.origin}, To: ${ride.destination}, Date: ${ride.date}, Available Seats: ${ride.amount}")
+                println(
+                    "Ride ID: ${ride.id}, From: ${ride.origin}, To: ${ride.destination}, Date: ${ride.date}, Available Seats: ${ride.amount}"
+                )
             }
         }
     }

@@ -4,20 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.todoapplication.TodoApplication
 import com.example.todoapplication.data.models.TodoItem
 import com.example.todoapplication.domain.usecases.AddTodoItemUseCase
 import com.example.todoapplication.domain.usecases.GetTodoItemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import javax.inject.Inject
-
 
 @HiltViewModel
 class TodoViewModel2 @Inject constructor(
@@ -28,7 +22,7 @@ class TodoViewModel2 @Inject constructor(
     private val _todoItemsListLiveData = MutableLiveData<List<TodoItem>>()
     val todoItemsListLiveData = _todoItemsListLiveData as LiveData<List<TodoItem>>
     init {
-        Log.d("viewModel2","${System.identityHashCode(getTodoItemsUseCase)}")
+        Log.d("viewModel2", "${System.identityHashCode(getTodoItemsUseCase)}")
     }
 
     fun getTodoItems() {
@@ -46,7 +40,6 @@ class TodoViewModel2 @Inject constructor(
                     }
                 },
                 onFailure = {
-
                 }
             )
         }

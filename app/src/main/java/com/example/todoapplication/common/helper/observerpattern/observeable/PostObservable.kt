@@ -4,7 +4,7 @@ import com.example.todoapplication.common.helper.observerpatternStore.observer.N
 
 class PostObservable<T> : IPostObservable<T> {
 
-    private var likeCount = 0;
+    private var likeCount = 0
     private val observersList = mutableListOf<T>()
 
     override fun addObserver(observer: T) {

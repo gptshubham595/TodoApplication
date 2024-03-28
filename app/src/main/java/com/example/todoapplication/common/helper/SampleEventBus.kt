@@ -20,5 +20,4 @@ class SampleEventBus {
             subscriber(event)
         }
     }
-
 }

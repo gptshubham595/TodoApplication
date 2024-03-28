@@ -7,4 +7,3 @@ interface ITodoItem {
     val task: String
     val status: Utils.TodoStatus
 }
-

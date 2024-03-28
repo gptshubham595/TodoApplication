@@ -38,7 +38,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
         create("benchmark") {
@@ -92,7 +92,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 }
-
 
 ktlint {
     version.set("0.48.2")

@@ -1,14 +1,14 @@
 package com.example.todoapplication.presentation.viewModels
 
 import com.example.todoapplication.domain.usecases.GetTodoItemsUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ModelClass @Inject constructor(
-    private val getTodoItemsUseCase: GetTodoItemsUseCase,
+    private val getTodoItemsUseCase: GetTodoItemsUseCase
 ) {
     val scope = CoroutineScope(Dispatchers.IO + Job())
     fun getTodoItems() {
@@ -22,7 +22,6 @@ class ModelClass @Inject constructor(
                 }
             },
             onFailure = {
-
             }
         )
     }

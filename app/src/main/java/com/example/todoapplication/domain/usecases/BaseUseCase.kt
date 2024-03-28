@@ -9,12 +9,7 @@ abstract class BaseUseCase<in Params, out Type> where Type : Any? {
 
     abstract suspend fun run(params: Params): Utils.Either<Exception, Type>
 
-    operator fun invoke(
-        scope: CoroutineScope,
-        params: Params,
-        onSuccess: (Type) -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
+    operator fun invoke(scope: CoroutineScope, params: Params, onSuccess: (Type) -> Unit, onFailure: (Exception) -> Unit) {
         val job = scope.async { run(params) }
         scope.launch {
             when (val result = job.await()) {

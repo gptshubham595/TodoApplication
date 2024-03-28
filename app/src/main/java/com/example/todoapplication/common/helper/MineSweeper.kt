@@ -102,7 +102,6 @@ class MineSweeper(private val rows: Int, private val cols: Int, private val mine
         var isFlagged: Boolean = false,
         var neighborMines: Int = 0
     )
-
 }
 
 fun main() {

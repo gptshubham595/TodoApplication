@@ -11,10 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapplication.R
 import com.example.todoapplication.common.Constant.Companion.EXTRA_GLOBAL_TODO_ACTION
 import com.example.todoapplication.common.Constant.Companion.EXTRA_LOCAL_TODO_ACTION
@@ -33,15 +30,16 @@ import com.example.todoapplication.presentation.viewModels.ModelClass
 import com.example.todoapplication.presentation.viewModels.TodoViewModel
 import com.example.todoapplication.presentation.viewModels.TodoViewModel2
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoFragment : Fragment() {
 
     private val todoViewModel: TodoViewModel by viewModels()
+
 //    private val todoViewModel2: TodoViewModel2 by viewModels()
     private val todoViewModel2: TodoViewModel2 by activityViewModels()
     private lateinit var binding: FragmentTodoBinding
@@ -53,11 +51,7 @@ class TodoFragment : Fragment() {
     @Inject
     lateinit var modelClass: ModelClass
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val layout = inflater.inflate(R.layout.fragment_todo, container, false)
         binding = FragmentTodoBinding.bind(layout)
@@ -66,7 +60,6 @@ class TodoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         todoViewModel.getTodoItems()
 //        todoViewModel2.getTodoItems()
@@ -78,7 +71,6 @@ class TodoFragment : Fragment() {
         initAdapter()
         initListener()
 
-
         sampleEventBus.register(MessageEvent::class.java) {
             showToast(it)
         }
@@ -89,7 +81,7 @@ class TodoFragment : Fragment() {
     private fun initAdapter() {
         val sampleTodoList = listOf(
             TodoItem(1, "Buy groceries", Utils.TodoStatus.PENDING),
-            TodoItem(2, "Read a book", Utils.TodoStatus.PENDING),
+            TodoItem(2, "Read a book", Utils.TodoStatus.PENDING)
             // Add more todos as needed
         )
 
@@ -110,7 +102,6 @@ class TodoFragment : Fragment() {
     }
 
     private fun showToast(it: MessageEvent) {
-
     }
 
     private fun initBroadCast() {
@@ -135,7 +126,6 @@ class TodoFragment : Fragment() {
     }
 
     private fun initView() {
-
     }
 
     private fun initObserver() {

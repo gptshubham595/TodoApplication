@@ -2,30 +2,28 @@ package com.example.todoapplication.data.repositories
 
 import com.example.todoapplication.common.Utils.Either
 import com.example.todoapplication.data.database.api.ApiInterface
-import com.example.todoapplication.data.database.cached.TodoDao
 import com.example.todoapplication.data.database.interfaces.ITodoDB
 import com.example.todoapplication.data.models.TodoItem
 import com.example.todoapplication.di.qualifier.ProcessorRoomDB
 import com.example.todoapplication.domain.interfaces.repositories.ITodoRepository
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 class TodoRepositoryImpl @Inject constructor(
     @ProcessorRoomDB private val todoDao: ITodoDB, // IDatabase
-    private val apiInterface: ApiInterface //IApi
+    private val apiInterface: ApiInterface // IApi
 ) : ITodoRepository {
     override suspend fun getTodoList(): Either<Exception, Flow<List<TodoItem>>> {
         return try {
-            Either.Success(flow {
-
-                emit(todoDao.fetchAllTodoItems())
-                emit(apiInterface.getPosts())
-
-            }.flowOn(Dispatchers.IO))
+            Either.Success(
+                flow {
+                    emit(todoDao.fetchAllTodoItems())
+                    emit(apiInterface.getPosts())
+                }.flowOn(Dispatchers.IO)
+            )
         } catch (e: Exception) {
             Either.Error(e)
         }

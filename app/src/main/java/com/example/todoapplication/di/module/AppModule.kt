@@ -13,15 +13,14 @@ import com.example.todoapplication.di.qualifier.ProcessorRoomDB
 import com.example.todoapplication.di.qualifier.ProcessorSharedPref
 import com.example.todoapplication.domain.interfaces.repositories.ITodoRepository
 import com.example.todoapplication.domain.usecases.AddTodoItemUseCase
-import com.example.todoapplication.domain.usecases.GetTodoItemsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -67,7 +66,7 @@ object AppModule {
             .client(okHttpClient)
             .build()
         return retrofit.create(
-            ApiInterface::class.java,
+            ApiInterface::class.java
         )
     }
 
@@ -88,5 +87,4 @@ object AppModule {
     fun provideAddTodoItemUseCase(todoRepositoryImpl: ITodoRepository): AddTodoItemUseCase {
         return AddTodoItemUseCase(todoRepositoryImpl)
     }
-
 }
