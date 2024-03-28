@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<baseline version="1.0">
+    <file name="build.gradle.kts">
+        <error line="41" column="37" source="trailing-comma-on-call-site" />
+        <error line="96" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/androidTest/java/com/example/todoapplication/ExampleInstrumentedTest.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="9" column="1" source="no-wildcard-imports" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/TodoApplication.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="7" column="22" source="colon-spacing" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/APIConstants.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="7" column="1" source="indent" />
+        <error line="7" column="19" source="experimental:property-naming" />
+        <error line="8" column="1" source="indent" />
+        <error line="9" column="1" source="indent" />
+        <error line="11" column="1" source="indent" />
+        <error line="12" column="1" source="indent" />
+        <error line="13" column="1" source="indent" />
+        <error line="14" column="1" source="indent" />
+        <error line="15" column="1" source="indent" />
+        <error line="16" column="1" source="indent" />
+        <error line="17" column="1" source="indent" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/Constant.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/Utils.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="no-unused-imports" />
+        <error line="11" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/broadcast/GlobalBroadCastReceiver.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="9" column="30" source="colon-spacing" />
+        <error line="11" column="55" source="curly-spacing" />
+        <error line="11" column="55" source="experimental:function-start-of-body-spacing" />
+        <error line="11" column="55" source="experimental:function-signature" />
+        <error line="16" column="17" source="keyword-spacing" />
+        <error line="16" column="28" source="curly-spacing" />
+        <error line="18" column="23" source="keyword-spacing" />
+        <error line="19" column="25" source="multiline-if-else" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/CoroutineAsyncTask.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="18" column="22" source="curly-spacing" />
+        <error line="28" column="1" source="no-consecutive-blank-lines" />
+        <error line="49" column="13" source="keyword-spacing" />
+        <error line="49" column="21" source="curly-spacing" />
+        <error line="62" column="16" source="curly-spacing" />
+        <error line="62" column="16" source="keyword-spacing" />
+        <error line="63" column="19" source="keyword-spacing" />
+        <error line="63" column="33" source="curly-spacing" />
+        <error line="68" column="18" source="curly-spacing" />
+        <error line="68" column="22" source="curly-spacing" />
+        <error line="68" column="22" source="keyword-spacing" />
+        <error line="72" column="13" source="keyword-spacing" />
+        <error line="72" column="33" source="curly-spacing" />
+        <error line="77" column="13" source="keyword-spacing" />
+        <error line="88" column="17" source="curly-spacing" />
+        <error line="88" column="17" source="experimental:function-start-of-body-spacing" />
+        <error line="88" column="17" source="experimental:function-signature" />
+        <error line="90" column="15" source="curly-spacing" />
+        <error line="91" column="15" source="keyword-spacing" />
+        <error line="91" column="47" source="curly-spacing" />
+        <error line="94" column="13" source="keyword-spacing" />
+        <error line="94" column="17" source="curly-spacing" />
+        <error line="94" column="17" source="keyword-spacing" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/LRUCache.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="17" column="1" source="no-blank-line-before-rbrace" />
+        <error line="24" column="1" source="no-consecutive-blank-lines" />
+        <error line="49" column="1" source="no-blank-line-before-rbrace" />
+        <error line="89" column="21" source="no-semi" />
+        <error line="93" column="24" source="no-semi" />
+        <error line="105" column="21" source="no-semi" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/MineSweeper.kt">
+        <error line="105" column="1" source="no-blank-line-before-rbrace" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/RateLimiter.kt">
+        <error line="3" column="1" source="import-ordering" />
+        <error line="3" column="1" source="no-wildcard-imports" />
+        <error line="17" column="34" source="experimental:comment-wrapping" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/RideShareApi.kt">
+        <error line="28" column="1" source="max-line-length" />
+        <error line="28" column="25" source="argument-list-wrapping" />
+        <error line="28" column="146" source="argument-list-wrapping" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/SampleEventBus.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="23" column="1" source="no-blank-line-before-rbrace" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpattern/Profile.kt">
+        <error line="24" column="1" source="no-blank-line-before-rbrace" />
+        <error line="25" column="1" source="no-consecutive-blank-lines" />
+        <error line="28" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpattern/observeable/IPostObservable.kt">
+        <error line="12" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpattern/observeable/PostObservable.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="7" column="30" source="no-semi" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpattern/observer/EmailAlertObserver.kt">
+        <error line="1" column="1" source="filename" />
+        <error line="1" column="1" source="final-newline" />
+        <error line="6" column="18" source="trailing-comma-on-declaration-site" />
+        <error line="11" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpattern/observer/NotificationReactionAlertObserver.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpatternStore/Store.kt">
+        <error line="22" column="1" source="no-blank-line-before-rbrace" />
+        <error line="23" column="1" source="no-consecutive-blank-lines" />
+        <error line="26" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpatternStore/observeable/IphoneObservable.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="5" column="26" source="colon-spacing" />
+        <error line="7" column="31" source="no-semi" />
+        <error line="20" column="15" source="keyword-spacing" />
+        <error line="20" column="48" source="curly-spacing" />
+        <error line="27" column="11" source="keyword-spacing" />
+        <error line="28" column="13" source="multiline-if-else" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpatternStore/observeable/StockObservable.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpatternStore/observer/EmailAlertObserver.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="6" column="18" source="trailing-comma-on-declaration-site" />
+        <error line="11" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/common/helper/observerpatternStore/observer/NotificationAlertObserver.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/database/api/ApiInterceptor.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="6" column="21" source="colon-spacing" />
+        <error line="14" column="1" source="no-blank-line-before-rbrace" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/database/api/ApiInterface.kt">
+        <error line="3" column="1" source="import-ordering" />
+        <error line="6" column="1" source="no-unused-imports" />
+        <error line="7" column="1" source="no-unused-imports" />
+        <error line="14" column="6" source="experimental:function-return-type-spacing" />
+        <error line="14" column="7" source="colon-spacing" />
+        <error line="15" column="1" source="no-blank-line-before-rbrace" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/database/cached/TodoDao.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="4" column="1" source="no-unused-imports" />
+        <error line="13" column="18" source="colon-spacing" />
+        <error line="26" column="1" source="no-blank-line-before-rbrace" />
+        <error line="27" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/database/cached/TodoDatabase.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/database/interfaces/ITodoDB.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/models/TodoModelImpl.kt">
+        <error line="1" column="1" source="filename" />
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/data/repositories/TodoRepositoryImpl.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="5" column="1" source="no-unused-imports" />
+        <error line="11" column="1" source="no-unused-imports" />
+        <error line="19" column="44" source="comment-spacing" />
+        <error line="23" column="28" source="wrapping" />
+        <error line="24" column="1" source="no-empty-first-line-in-method-block" />
+        <error line="27" column="1" source="no-blank-line-before-rbrace" />
+        <error line="28" column="36" source="wrapping" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/di/module/AppModule.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="16" column="1" source="no-unused-imports" />
+        <error line="70" column="37" source="trailing-comma-on-call-site" />
+        <error line="91" column="1" source="no-blank-line-before-rbrace" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/di/qualifier/AppQualifier.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/domain/interfaces/models/ITodoModel.kt">
+        <error line="1" column="1" source="filename" />
+        <error line="11" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/domain/interfaces/repositories/ITodoRepository.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="no-unused-imports" />
+        <error line="10" column="49" source="comma-spacing" />
+        <error line="12" column="67" source="comma-spacing" />
+        <error line="14" column="45" source="experimental:function-return-type-spacing" />
+        <error line="14" column="46" source="colon-spacing" />
+        <error line="14" column="65" source="comma-spacing" />
+        <error line="16" column="51" source="experimental:function-return-type-spacing" />
+        <error line="16" column="52" source="colon-spacing" />
+        <error line="16" column="71" source="comma-spacing" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/domain/interfaces/service/IServiceCallback.kt">
+        <error line="1" column="1" source="final-newline" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/domain/usecases/AddTodoItemUseCase.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="9" column="1" source="no-consecutive-blank-lines" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/domain/usecases/BaseUseCase.kt">
+        <error line="13" column="9" source="experimental:function-signature" />
+        <error line="14" column="9" source="experimental:function-signature" />
+        <error line="15" column="9" source="experimental:function-signature" />
+        <error line="16" column="9" source="experimental:function-signature" />
+        <error line="16" column="39" source="experimental:function-signature" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/domain/usecases/GetTodoItemsUseCase.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/activities/MainActivity.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="9" column="1" source="no-unused-imports" />
+        <error line="15" column="1" source="no-unused-imports" />
+        <error line="29" column="1" source="no-blank-line-before-rbrace" />
+        <error line="35" column="1" source="no-blank-line-before-rbrace" />
+        <error line="54" column="31" source="op-spacing" />
+        <error line="62" column="11" source="keyword-spacing" />
+        <error line="62" column="27" source="curly-spacing" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/adapter/TodoAdapter.kt">
+        <error line="4" column="1" source="no-unused-imports" />
+        <error line="8" column="1" source="no-unused-imports" />
+        <error line="118" column="40" source="trailing-comma-on-declaration-site" />
+        <error line="133" column="17" source="wrapping" />
+        <error line="134" column="1" source="indent" />
+        <error line="134" column="82" source="wrapping" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/broadcast/LocalBroadCast.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="19" column="1" source="no-blank-line-before-rbrace" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/fragments/TodoFragment.kt">
+        <error line="3" column="1" source="import-ordering" />
+        <error line="14" column="1" source="no-unused-imports" />
+        <error line="15" column="1" source="no-unused-imports" />
+        <error line="17" column="1" source="no-unused-imports" />
+        <error line="45" column="1" source="spacing-between-declarations-with-comments" />
+        <error line="57" column="9" source="experimental:function-signature" />
+        <error line="58" column="9" source="experimental:function-signature" />
+        <error line="59" column="9" source="experimental:function-signature" />
+        <error line="59" column="36" source="experimental:function-signature" />
+        <error line="70" column="1" source="no-consecutive-blank-lines" />
+        <error line="81" column="1" source="no-consecutive-blank-lines" />
+        <error line="92" column="65" source="trailing-comma-on-call-site" />
+        <error line="113" column="1" source="no-blank-line-before-rbrace" />
+        <error line="113" column="1" source="no-empty-first-line-in-method-block" />
+        <error line="138" column="1" source="no-blank-line-before-rbrace" />
+        <error line="138" column="1" source="no-empty-first-line-in-method-block" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/service/BasicService.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="5" column="1" source="no-unused-imports" />
+        <error line="9" column="24" source="colon-spacing" />
+        <error line="13" column="25" source="experimental:function-return-type-spacing" />
+        <error line="13" column="26" source="colon-spacing" />
+        <error line="34" column="21" source="curly-spacing" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/viewModels/ModelClass.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="11" column="57" source="trailing-comma-on-declaration-site" />
+        <error line="25" column="1" source="no-blank-line-before-rbrace" />
+        <error line="25" column="1" source="no-empty-first-line-in-method-block" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/viewModels/TodoViewModel.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="28" column="28" source="comma-spacing" />
+        <error line="45" column="1" source="no-blank-line-before-rbrace" />
+        <error line="45" column="1" source="no-empty-first-line-in-method-block" />
+    </file>
+    <file name="src/main/java/com/example/todoapplication/presentation/viewModels/TodoViewModel2.kt">
+        <error line="3" column="1" source="import-ordering" />
+        <error line="7" column="1" source="no-unused-imports" />
+        <error line="8" column="1" source="no-unused-imports" />
+        <error line="9" column="1" source="no-unused-imports" />
+        <error line="11" column="1" source="no-unused-imports" />
+        <error line="12" column="1" source="no-unused-imports" />
+        <error line="21" column="1" source="no-consecutive-blank-lines" />
+        <error line="31" column="28" source="comma-spacing" />
+        <error line="49" column="1" source="no-blank-line-before-rbrace" />
+        <error line="49" column="1" source="no-empty-first-line-in-method-block" />
+    </file>
+    <file name="src/test/java/com/example/todoapplication/ExampleUnitTest.kt">
+        <error line="1" column="1" source="final-newline" />
+        <error line="3" column="1" source="import-ordering" />
+        <error line="5" column="1" source="no-wildcard-imports" />
+    </file>
+</baseline>
