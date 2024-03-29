@@ -18,7 +18,7 @@ class BaselineProfileGenerator {
     @RequiresApi(Build.VERSION_CODES.P)
     @Test
     fun generateBaselineProfile() = baselineRule.collect(
-        packageName = "com.example.todoapplication",
+        packageName = "com.todo.todoapplication",
         includeInStartupProfile = true,
         profileBlock = {
             // Run your app here, and perform the actions you want

@@ -31,7 +31,7 @@ class ExampleMacroStartupBenchmark {
     @Test
     fun startup() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         benchmarkRule.measureRepeated(
-            packageName = "com.example.todoapplication",
+            packageName = "com.todo.todoapplication",
             metrics = listOf(
                 StartupTimingMetric(),
             ),

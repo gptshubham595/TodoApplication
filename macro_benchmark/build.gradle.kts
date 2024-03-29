@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.benchmark"
+    namespace = "com.todo.benchmark"
     compileSdk = 34
 
     compileOptions {

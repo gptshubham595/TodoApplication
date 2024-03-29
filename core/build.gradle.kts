@@ -9,6 +9,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.baselineprofile")
     id("org.jlleitschuh.gradle.ktlint")
+    id("io.realm.kotlin")
 }
 
 android {
@@ -81,6 +82,9 @@ dependencies {
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 
     implementation("androidx.security:security-crypto:1.0.0")
+
+    implementation("io.realm.kotlin:library-base:1.5.0")
+    implementation("io.realm.kotlin:gradle-plugin:1.4.0")
 }
 
 ktlint {

@@ -11,14 +11,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.todo.common.Constant.Companion.EXTRA_GLOBAL_TODO_ACTION
-import com.todo.common.Constant.Companion.EXTRA_LOCAL_TODO_ACTION
-import com.todo.common.Constant.Companion.GLOBAL_TODO_ACTION
-import com.todo.common.Constant.Companion.LOCAL_TODO_ACTION
+import com.todo.common.EXTRA_GLOBAL_TODO_ACTION
+import com.todo.common.EXTRA_LOCAL_TODO_ACTION
+import com.todo.common.GLOBAL_TODO_ACTION
+import com.todo.common.LOCAL_TODO_ACTION
 import com.todo.common.Utils
 import com.todo.common.helper.MessageEvent
 import com.todo.common.helper.SampleEventBus
-import com.todo.domain.interfaces.models.TodoItem
+import com.todo.domain.models.TodoItem
 import com.todo.presentation.R
 import com.todo.presentation.adapter.TodoAdapter
 import com.todo.presentation.broadcast.LocalBroadCast
@@ -93,6 +93,7 @@ class TodoFragment : Fragment() {
 //            val localIntentFilter = Intent(LOCAL_TODO_ACTION)
 //            localIntentFilter.putExtra(EXTRA_LOCAL_TODO_ACTION, "Hello")
 //            LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(localIntentFilter)
+
             val globalIntent = Intent(GLOBAL_TODO_ACTION)
             globalIntent.putExtra(EXTRA_GLOBAL_TODO_ACTION, "Hello $GLOBAL_TODO_ACTION")
             requireActivity().sendBroadcast(globalIntent)

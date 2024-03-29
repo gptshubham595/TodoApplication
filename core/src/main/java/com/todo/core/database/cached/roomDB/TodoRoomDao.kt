@@ -1,15 +1,15 @@
-package com.todo.core.database.cached
+package com.todo.core.database.cached.roomDB
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.todo.core.database.interfaces.ITodoDB
+import com.todo.core.database.interfaces.TodoDataSource
 import com.todo.data.models.TodoItemEntity
 
 @Dao
-interface TodoDao : ITodoDB {
+interface TodoRoomDao : TodoDataSource {
 
     @Query("Select * from todo_table")
     override suspend fun fetchAllTodoItems(): List<TodoItemEntity>

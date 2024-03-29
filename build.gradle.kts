@@ -7,6 +7,7 @@ plugins {
     id("com.android.library") version "8.1.4" apply false
     id("androidx.baselineprofile") version "1.2.3" // Baseline profile plugin
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0" apply false
+    id("io.realm.kotlin") version "1.4.0" apply true
 }
 
 allprojects { // to run the ktlint Format on all modules

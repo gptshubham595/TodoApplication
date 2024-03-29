@@ -5,27 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.todo.common.Utils
-import com.todo.domain.interfaces.models.ITodoItem
+import com.todo.domain.models.TodoItem
 import com.todo.presentation.databinding.LayoutListItemBinding
 
 class TodoAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val todoList = mutableListOf<ITodoItem>()
+    private val todoList = mutableListOf<TodoItem>()
 
-    fun updateList(list: List<ITodoItem>) {
+    fun updateList(list: List<TodoItem>) {
         val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
         todoList.clear()
         todoList.addAll(list)
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun addAItemToList(item: ITodoItem) {
+    fun addAItemToList(item: TodoItem) {
         todoList.add(item)
         notifyItemInserted(todoList.size - 1)
     }
 
-    fun addAllItemToList(list: List<ITodoItem>) {
+    fun addAllItemToList(list: List<TodoItem>) {
         val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
         todoList.addAll(list)
         diffResult.dispatchUpdatesTo(this)
@@ -72,7 +72,7 @@ class TodoAdapter :
     inner class ItemViewHolder(itemView: LayoutListItemBinding) :
         RecyclerView.ViewHolder(itemView.root) {
         private var itemRowBinding = itemView
-        fun bind(item: ITodoItem) {
+        fun bind(item: TodoItem) {
             if (item != null) {
                 itemRowBinding.titleTextView.text = item.task
                 itemRowBinding.completedCheckBox.isChecked =
@@ -113,8 +113,8 @@ class TodoAdapter :
 }
 
 class TodoDiffUtils(
-    private val oldList: List<ITodoItem>,
-    private val newList: List<ITodoItem>
+    private val oldList: List<TodoItem>,
+    private val newList: List<TodoItem>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size

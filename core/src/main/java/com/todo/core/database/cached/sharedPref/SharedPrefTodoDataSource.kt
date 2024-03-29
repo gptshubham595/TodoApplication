@@ -4,15 +4,15 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
-import com.todo.core.database.interfaces.ITodoDB
+import com.todo.core.database.interfaces.TodoDataSource
 import com.todo.data.models.TodoItemEntity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class TodoSharedPrefDao @Inject constructor(
+class SharedPrefTodoDataSource @Inject constructor(
     @ApplicationContext applicationContext: Context,
     private val gson: Gson
-) : ITodoDB {
+) : TodoDataSource {
 
     // create a encyrpterd shared pref
     val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)

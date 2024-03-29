@@ -2,7 +2,7 @@ package com.todo.core.database.interfaces
 
 import com.todo.data.models.TodoItemEntity
 
-interface ITodoDB {
+interface TodoDataSource {
     suspend fun fetchAllTodoItems(): List<TodoItemEntity>
     suspend fun addTodoItem(todoItemEntity: TodoItemEntity): Long
 

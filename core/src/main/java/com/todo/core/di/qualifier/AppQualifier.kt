@@ -4,12 +4,12 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class ProcessorRoomDB
+annotation class RoomDatabaseQualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class ProcessorRealmDB
+annotation class RealmDBQualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class ProcessorSharedPref
+annotation class SharedPrefDatabaseQualifier

@@ -40,7 +40,7 @@ class RateLimiter(
 
 fun main() {
     runBlocking {
-        // Example usage of com.example.todoapplication.common.helper.RateLimiter
+        // Example usage of com.todo.todoapplication.common.helper.RateLimiter
         val rateLimiter = RateLimiter(rateLimit = 5, timeWindow = 10000L) {
             // Action to be performed within the rate limit
             println("Action performed at ${System.currentTimeMillis()}")

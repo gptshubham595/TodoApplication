@@ -16,5 +16,14 @@
             android:name="com.todo.presentation.service.BasicService"
             android:enabled="true"
             android:exported="true" />
+
+        <receiver
+            android:name="com.todo.presentation.broadcast.GlobalBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.todo.common.GLOBAL_TODO_ACTION" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

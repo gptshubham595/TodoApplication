@@ -1,14 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest>
 
-    <application>
-        <receiver
-            android:name=".common.broadcast.GlobalBroadCastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.todoapplication.common.GLOBAL_TODO_ACTION" />
-            </intent-filter>
-        </receiver>
-    </application>
 </manifest>

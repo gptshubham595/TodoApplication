@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todo.domain.interfaces.models.ITodoItem
+import com.todo.domain.models.TodoItem
 import com.todo.domain.usecases.AddTodoItemUseCase
 import com.todo.domain.usecases.GetTodoItemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +19,8 @@ class TodoViewModel @Inject constructor(
     private val addTodoItemUseCase: AddTodoItemUseCase
 ) : ViewModel() {
 
-    private val _todoItemsListLiveData = MutableLiveData<List<ITodoItem>>()
-    val todoItemsListLiveData = _todoItemsListLiveData as LiveData<List<ITodoItem>>
+    private val _todoItemsListLiveData = MutableLiveData<List<TodoItem>>()
+    val todoItemsListLiveData = _todoItemsListLiveData as LiveData<List<TodoItem>>
 
     init {
         Log.d("viewModel1", "${System.identityHashCode(getTodoItemsUseCase)}")
