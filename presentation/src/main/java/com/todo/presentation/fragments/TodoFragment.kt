@@ -28,10 +28,10 @@ import com.todo.presentation.viewModels.ModelClass
 import com.todo.presentation.viewModels.TodoViewModel
 import com.todo.presentation.viewModels.TodoViewModel.Companion.DataEvent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoFragment : Fragment() {

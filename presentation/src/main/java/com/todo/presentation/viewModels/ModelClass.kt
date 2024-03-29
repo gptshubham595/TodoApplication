@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 class ModelClass @Inject constructor(
 //    private val getTodoItemsUseCase: GetTodoItemsUseCase
-) {}
+)
 //    val scope = CoroutineScope(Dispatchers.IO + Job())
 //    fun getTodoItems() {
 //        getTodoItemsUseCase(
@@ -20,4 +20,4 @@ class ModelClass @Inject constructor(
 //            }
 //        )
 //    }
-//}
+// }

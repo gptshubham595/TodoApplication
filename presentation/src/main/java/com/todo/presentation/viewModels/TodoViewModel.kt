@@ -9,9 +9,9 @@ import com.todo.domain.interfaces.models.ITodoItem
 import com.todo.domain.usecases.AddTodoItemUseCase
 import com.todo.domain.usecases.GetTodoItemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import javax.inject.Inject
 
 @HiltViewModel
 class TodoViewModel @Inject constructor(

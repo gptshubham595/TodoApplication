@@ -6,7 +6,6 @@ import javax.inject.Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class ProcessorRoomDB
 
-
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class ProcessorRealmDB
