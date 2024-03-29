@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GlobalBroadCastReceiver @Inject constructor(): BroadcastReceiver() {
+class GlobalBroadCastReceiver @Inject constructor() : BroadcastReceiver() {
     private lateinit var listener: GlobalBroadCastListener
     fun setListener(listener: GlobalBroadCastListener) {
         this.listener = listener

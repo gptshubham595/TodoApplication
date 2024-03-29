@@ -2,8 +2,8 @@ package com.todo.domain.usecases
 
 import android.util.Log
 import com.todo.common.Utils.Either
-import com.todo.domain.models.TodoItem
 import com.todo.domain.interfaces.repositories.TodoRepository
+import com.todo.domain.models.TodoItem
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow

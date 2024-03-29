@@ -19,6 +19,6 @@ git config core.hooksPath .git/hooks
 
 echo ".....Staging all file changed during ktlint formatting................."
 
-#git add .
+git add .
 
 echo "Completed.............................................................."

@@ -1,8 +1,8 @@
 package com.todo.domain.usecases
 
 import com.todo.common.Utils
-import com.todo.domain.models.TodoItem
 import com.todo.domain.interfaces.repositories.TodoRepository
+import com.todo.domain.models.TodoItem
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
