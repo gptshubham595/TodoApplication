@@ -78,7 +78,6 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
-
 }
 
 ktlint {

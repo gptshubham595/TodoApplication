@@ -4,27 +4,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.todo.todoapplication.common.Utils
-import com.todo.todoapplication.data.models.TodoItem
-import com.todo.todoapplication.databinding.LayoutListItemBinding
+import com.todo.common.Utils
+import com.todo.domain.interfaces.models.ITodoItem
+import com.todo.presentation.databinding.LayoutListItemBinding
 
 class TodoAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val todoList = mutableListOf<TodoItem>()
+    private val todoList = mutableListOf<ITodoItem>()
 
-    fun updateList(list: List<TodoItem>) {
+    fun updateList(list: List<ITodoItem>) {
         val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
         todoList.clear()
         todoList.addAll(list)
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun addAItemToList(item: TodoItem) {
+    fun addAItemToList(item: ITodoItem) {
         todoList.add(item)
         notifyItemInserted(todoList.size - 1)
     }
-    fun addAllItemToList(list: List<TodoItem>) {
+
+    fun addAllItemToList(list: List<ITodoItem>) {
         val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
         todoList.addAll(list)
         diffResult.dispatchUpdatesTo(this)
@@ -71,7 +72,7 @@ class TodoAdapter :
     inner class ItemViewHolder(itemView: LayoutListItemBinding) :
         RecyclerView.ViewHolder(itemView.root) {
         private var itemRowBinding = itemView
-        fun bind(item: TodoItem) {
+        fun bind(item: ITodoItem) {
             if (item != null) {
                 itemRowBinding.titleTextView.text = item.task
                 itemRowBinding.completedCheckBox.isChecked =
@@ -112,8 +113,8 @@ class TodoAdapter :
 }
 
 class TodoDiffUtils(
-    private val oldList: List<TodoItem>,
-    private val newList: List<TodoItem>
+    private val oldList: List<ITodoItem>,
+    private val newList: List<ITodoItem>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size

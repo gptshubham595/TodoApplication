@@ -12,7 +12,7 @@ import com.todo.common.Utils.TodoStatus
 import com.todo.domain.interfaces.models.ITodoItem
 
 @Entity(tableName = TODO_TABLE_NAME)
-data class TodoItem(
+data class TodoItemEntity(
 
     @PrimaryKey
     @SerializedName("id")

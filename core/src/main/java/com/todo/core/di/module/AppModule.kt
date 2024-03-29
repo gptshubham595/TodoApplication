@@ -22,10 +22,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -49,10 +49,7 @@ object AppModule {
     @Provides
     @Singleton
     @ProcessorSharedPref
-    fun provideSharedPrefTodoDao(
-        @ApplicationContext context: Context,
-        gson: Gson,
-    ): ITodoDB {
+    fun provideSharedPrefTodoDao(@ApplicationContext context: Context, gson: Gson): ITodoDB {
         return TodoSharedPrefDao(context, gson)
     }
 

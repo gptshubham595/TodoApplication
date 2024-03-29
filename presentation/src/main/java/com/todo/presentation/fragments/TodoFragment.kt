@@ -11,34 +11,34 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.todo.todoapplication.R
-import com.todo.todoapplication.common.Constant.Companion.EXTRA_GLOBAL_TODO_ACTION
-import com.todo.todoapplication.common.Constant.Companion.EXTRA_LOCAL_TODO_ACTION
-import com.todo.todoapplication.common.Constant.Companion.GLOBAL_TODO_ACTION
-import com.todo.todoapplication.common.Constant.Companion.LOCAL_TODO_ACTION
-import com.todo.todoapplication.common.Utils
-import com.todo.todoapplication.common.helper.MessageEvent
-import com.todo.todoapplication.common.helper.SampleEventBus
-import com.todo.todoapplication.data.models.TodoItem
-import com.todo.todoapplication.databinding.FragmentTodoBinding
+import com.todo.common.Constant.Companion.EXTRA_GLOBAL_TODO_ACTION
+import com.todo.common.Constant.Companion.EXTRA_LOCAL_TODO_ACTION
+import com.todo.common.Constant.Companion.GLOBAL_TODO_ACTION
+import com.todo.common.Constant.Companion.LOCAL_TODO_ACTION
+import com.todo.common.Utils
+import com.todo.common.helper.MessageEvent
+import com.todo.common.helper.SampleEventBus
+import com.todo.domain.interfaces.models.TodoItem
+import com.todo.presentation.R
 import com.todo.presentation.adapter.TodoAdapter
 import com.todo.presentation.broadcast.LocalBroadCast
 import com.todo.presentation.broadcast.TodoBroadCastListener
-import com.todo.presentation.viewModels.TodoViewModel.Companion.DataEvent
+import com.todo.presentation.databinding.FragmentTodoBinding
 import com.todo.presentation.viewModels.ModelClass
 import com.todo.presentation.viewModels.TodoViewModel
+import com.todo.presentation.viewModels.TodoViewModel.Companion.DataEvent
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoFragment : Fragment() {
 
     private val todoViewModel: TodoViewModel by viewModels()
 
-//    private val todoViewModel2: TodoViewModel2 by viewModels()
+    //    private val todoViewModel2: TodoViewModel2 by viewModels()
 //    private val todoViewModel2: TodoViewModel2 by activityViewModels()
     private lateinit var binding: FragmentTodoBinding
     private lateinit var localBroadCast: LocalBroadCast

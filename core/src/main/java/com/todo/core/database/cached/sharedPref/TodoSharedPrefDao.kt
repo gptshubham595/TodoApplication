@@ -5,7 +5,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import com.todo.core.database.interfaces.ITodoDB
-import com.todo.data.models.TodoItem
+import com.todo.data.models.TodoItemEntity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ class TodoSharedPrefDao @Inject constructor(
     private val gson: Gson
 ) : ITodoDB {
 
-    //create a encyrpterd shared pref
+    // create a encyrpterd shared pref
     val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     val sharedPreferences = EncryptedSharedPreferences.create(
         // passing a file name to share a preferences
@@ -25,21 +25,21 @@ class TodoSharedPrefDao @Inject constructor(
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    override suspend fun fetchAllTodoItems(): List<TodoItem> {
-        val todoItems = mutableListOf<TodoItem>()
+    override suspend fun fetchAllTodoItems(): List<TodoItemEntity> {
+        val todoItemEntities = mutableListOf<TodoItemEntity>()
         sharedPreferences.all.forEach {
             val todoItem = sharedPreferences.getString(it.key, null)
             todoItem?.let {
-                val data: TodoItem = gson.fromJson(it, TodoItem::class.java)
-                todoItems.add(data)
+                val data: TodoItemEntity = gson.fromJson(it, TodoItemEntity::class.java)
+                todoItemEntities.add(data)
             }
         }
-        return todoItems
+        return todoItemEntities
     }
 
-    override suspend fun addTodoItem(todoItem: TodoItem): Long {
-        val data = gson.toJson(todoItem)
-        sharedPreferences.edit().putString(todoItem.id.toString(), data).apply()
+    override suspend fun addTodoItem(todoItemEntity: TodoItemEntity): Long {
+        val data = gson.toJson(todoItemEntity)
+        sharedPreferences.edit().putString(todoItemEntity.id.toString(), data).apply()
         return 1
     }
 
@@ -48,9 +48,9 @@ class TodoSharedPrefDao @Inject constructor(
         return 1
     }
 
-    override suspend fun updateTodoItem(todoItem: TodoItem): Int {
-        val data = gson.toJson(todoItem)
-        sharedPreferences.edit().putString(todoItem.id.toString(), data).apply()
+    override suspend fun updateTodoItem(todoItemEntity: TodoItemEntity): Int {
+        val data = gson.toJson(todoItemEntity)
+        sharedPreferences.edit().putString(todoItemEntity.id.toString(), data).apply()
         return 1
     }
 }

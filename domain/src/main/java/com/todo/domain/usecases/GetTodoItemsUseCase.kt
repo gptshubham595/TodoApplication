@@ -4,9 +4,9 @@ import android.util.Log
 import com.todo.common.Utils.Either
 import com.todo.domain.interfaces.models.ITodoItem
 import com.todo.domain.interfaces.repositories.TodoRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 
 @Singleton
 class GetTodoItemsUseCase @Inject constructor(
