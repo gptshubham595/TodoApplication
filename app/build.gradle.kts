@@ -1,4 +1,4 @@
-import com.android.build.api.dsl.ManagedVirtualDevice
+
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
