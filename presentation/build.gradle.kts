@@ -4,6 +4,10 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("androidx.baselineprofile")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
     id("org.jlleitschuh.gradle.ktlint")
 }
 
@@ -46,17 +50,37 @@ android {
             include("com.todo.presentation.**")
         }
     }
+    buildFeatures {
+        buildConfig = true
+        dataBinding = true // enable data binding
+    }
 }
 
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
+    implementation(project(":core"))
+    implementation(project(":common"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.profileinstaller:profileinstaller:1.4.0-alpha01") // Optional, simplifies profile deployment
     baselineProfile(project(":macro_benchmark"))
+
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+
+    implementation("com.google.dagger:hilt-android:2.50")
+    ksp("com.google.dagger:hilt-android-compiler:2.50")
+    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+
+    implementation("org.greenrobot:eventbus:3.2.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 }
 
 ktlint {

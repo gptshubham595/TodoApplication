@@ -17,3 +17,7 @@ rootProject.name = "TodoApplication"
 include(":app")
 include(":macro_benchmark")
 include(":presentation")
+include(":core")
+include(":data")
+include(":domain")
+include(":common")

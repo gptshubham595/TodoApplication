@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<baseline version="1.0">
+    <file name="src/androidTest/java/com/example/data/ExampleInstrumentedTest.kt">
+        <error line="3" column="1" source="import-ordering" />
+        <error line="9" column="1" source="no-wildcard-imports" />
+    </file>
+    <file name="src/main/java/com/example/data/models/TodoItem.kt">
+        <error line="3" column="1" source="import-ordering" />
+    </file>
+    <file name="src/test/java/com/example/data/ExampleUnitTest.kt">
+        <error line="3" column="1" source="import-ordering" />
+        <error line="5" column="1" source="no-wildcard-imports" />
+    </file>
+</baseline>
