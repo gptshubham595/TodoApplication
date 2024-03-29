@@ -25,14 +25,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    testOptions.managedDevices.devices {
-        create<ManagedVirtualDevice>("pixel2api34") {
-            device = "Pixel 2"
-            apiLevel = 34
-            systemImageSource = "aosp-atd"
-        }
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false

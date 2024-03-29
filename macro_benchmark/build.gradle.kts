@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id("com.android.test")
     id("org.jetbrains.kotlin.android")
@@ -14,6 +16,14 @@ android {
 
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    testOptions.managedDevices.devices {
+        create<ManagedVirtualDevice>("pixel2api34") {
+            device = "Pixel 2"
+            apiLevel = 34
+            systemImageSource = "aosp-atd"
+        }
     }
 
     defaultConfig {

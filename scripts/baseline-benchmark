@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./gradlew :macro_benchmark:allDevicesBenchmarkAndroidTest --rerun-tasks -P android.testInstrumentationRunnerArguments.class=com.ola.benchmark.BaselineProfileGenerator
+./gradlew :macro_benchmark:allDevicesBenchmarkAndroidTest --rerun-tasks -P android.testInstrumentationRunnerArguments.class=com.example.benchmark.BaselineProfileGenerator
 
 
 cp -R  "benchmark/build/outputs/managed_device_android_test_additional_output/benchmark/flavors/production/pixel2api34/BaselineProfileGenerator_generateBaselineProfile-baseline-prof.txt" "app/src/main/baseline-prof.txt"
