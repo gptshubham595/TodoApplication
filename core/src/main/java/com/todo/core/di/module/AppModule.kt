@@ -8,9 +8,11 @@ import com.todo.common.APIConstants.BASE_URl
 import com.todo.common.TODO_DATABASE_NAME
 import com.todo.core.database.api.ApiInterceptor
 import com.todo.core.database.api.ApiInterface
+import com.todo.core.database.cached.realmDB.TodoRealmDaoImpl
 import com.todo.core.database.cached.roomDB.TodoRoomDatabase
 import com.todo.core.database.cached.sharedPref.SharedPrefTodoDataSource
 import com.todo.core.database.interfaces.TodoDataSource
+import com.todo.core.di.qualifier.RealmDBQualifier
 import com.todo.core.di.qualifier.RoomDatabaseQualifier
 import com.todo.core.di.qualifier.SharedPrefDatabaseQualifier
 import com.todo.core.repositories.TodoRepositoryImpl
@@ -87,6 +89,13 @@ object AppModule {
 
     @Provides
     @Singleton
+    @RealmDBQualifier
+    fun provideRealmDao(todoRealmDaoImpl: TodoRealmDaoImpl): TodoDataSource {
+        return todoRealmDaoImpl
+    }
+
+    @Provides
+    @Singleton
     fun provideGson(): Gson {
         return Gson()
     }
@@ -100,7 +109,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoRepository(@SharedPrefDatabaseQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
+    fun provideTodoRepository(@RealmDBQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
         return TodoRepositoryImpl(todoDao, apiInterface)
     }
 
@@ -114,5 +123,10 @@ object AppModule {
     @Singleton
     fun provideAddTodoItemUseCase(todoRepositoryImpl: TodoRepository): AddTodoItemUseCase {
         return AddTodoItemUseCase(todoRepositoryImpl)
+    }
+
+    @Provides
+    fun providesTodoItemEntityRealm(): TodoItemEntityRealm {
+        return TodoItemEntityRealm(0, "", "")
     }
 }

@@ -8,9 +8,10 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 
 class TodoRealmDaoImpl @Inject constructor(
-    override val realm: Realm,
-    override val clazz: KClass<TodoItemEntityRealm>
+    override val realm: Realm
 ) : TodoRealmDao, TodoDataSource {
+
+    override val clazz: KClass<TodoItemEntityRealm> = TodoItemEntityRealm::class
     override suspend fun fetchAllTodoItems(): List<TodoItemEntity> {
         return findAll().map { it.toTodoItemEntity() }
     }
