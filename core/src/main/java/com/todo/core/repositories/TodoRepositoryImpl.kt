@@ -11,6 +11,7 @@ import com.todo.domain.models.TodoItem
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -19,15 +20,35 @@ class TodoRepositoryImpl @Inject constructor(
     private val apiInterface: ApiInterface // IApi
 ) : TodoRepository {
     override suspend fun getTodoList(): Either<Exception, Flow<List<TodoItem>>> {
-        return try {
-            Either.Success(
-                flow {
-                    emit(todoDao.fetchAllTodoItems().map { it.toDomain() })
-                    emit(apiInterface.getPosts().map { it.toDomain() })
+        try {
+            var f1: Flow<List<TodoItem>>? = null
+            var f2: Flow<List<TodoItem>>? = null
+
+            val data = todoDao.fetchAllTodoItems()
+            data?.let {
+                f1 = flow {
+                    emit(it.map { it.toDomain() })
                 }.flowOn(Dispatchers.IO)
-            )
+            }
+
+            val api = apiInterface.getPosts()
+
+            api?.let {
+                f2 = flow {
+                    emit(it.map { it.toDomain() })
+                }.flowOn(Dispatchers.IO)
+            }
+            if (f1 != null && f2 != null) {
+                return Either.Success(f1!!.combine(f2!!) { a, b -> a + b })
+            } else if (f1 != null) {
+                return Either.Success(f1!!)
+            } else if (f2 != null) {
+                return Either.Success(f2!!)
+            } else {
+                return Either.Error(Exception("No data found"))
+            }
         } catch (e: Exception) {
-            Either.Error(e)
+            return Either.Error(e)
         }
     }
 
