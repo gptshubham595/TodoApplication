@@ -1,0 +1,56 @@
+# Workflow name
+name: Release App
+    
+# When it will be triggered
+on:
+  push:
+    branches:
+      - main
+      
+# Where it will run
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+        
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+          
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt' 
+          java-version: '17'
+                 - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt')}}) }}
+          restore-keys: |
+            $C{{ runner.os }}-gradle-
+      
+      - name: Make Gradle Executable
+        run: chmod +x ./gradlew        
+      - name: Generate App Version Name
+        run: echo "VERSION_NAME=$(git describe --tags | sed 's/\(.*\)-/\1./' | sed 's/\(.*\)-/\1+/')" >> $GITHUB_ENV
+      
+      - name: Bump Version
+        uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: app/build.gradle.kts
+          versionCode: ${{ github.run_number }}
+          versionName: ${{ env.VERSION_NAME }}
+      
+      - name: Build with Gradle
+        run: ./gradlew build    
+     - name: Upload Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test-Reports
+          path: app/build/reports
+        if: always()
+
+

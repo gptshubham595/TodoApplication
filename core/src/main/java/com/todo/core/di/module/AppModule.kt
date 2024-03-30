@@ -109,7 +109,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoRepository(@RealmDBQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
+    fun provideTodoRepository(@RoomDatabaseQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
         return TodoRepositoryImpl(todoDao, apiInterface)
     }
 
