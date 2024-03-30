@@ -14,6 +14,7 @@ import com.todo.core.database.interfaces.TodoDataSource
 import com.todo.core.di.qualifier.RoomDatabaseQualifier
 import com.todo.core.di.qualifier.SharedPrefDatabaseQualifier
 import com.todo.core.repositories.TodoRepositoryImpl
+import com.todo.data.models.TodoItemEntityRealm
 import com.todo.domain.interfaces.repositories.TodoRepository
 import com.todo.domain.usecases.AddTodoItemUseCase
 import com.todo.domain.usecases.GetTodoItemsUseCase
@@ -22,6 +23,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -33,7 +36,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoDataBase(application: Application): TodoRoomDatabase {
+    fun provideTodoRoomDataBase(application: Application): TodoRoomDatabase {
         return Room.databaseBuilder(application, TodoRoomDatabase::class.java, TODO_DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
@@ -41,15 +44,29 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideRealm(@ApplicationContext context: Context): Realm {
+        val realmConfig = RealmConfiguration.Builder(
+            schema = setOf(
+                TodoItemEntityRealm::class
+            )
+        ).name("todo_realm.realm")
+            .schemaVersion(1)
+            .deleteRealmIfMigrationNeeded()
+            .build()
+        return Realm.open(realmConfig)
+    }
+
+    @Provides
+    @Singleton
     @RoomDatabaseQualifier
-    fun provideTodoDao(todoRoomDatabase: TodoRoomDatabase): TodoDataSource {
+    fun provideTodoRoomDao(todoRoomDatabase: TodoRoomDatabase): TodoDataSource {
         return todoRoomDatabase.getTodoDao()
     }
 
     @Provides
     @Singleton
     @SharedPrefDatabaseQualifier
-    fun provideSharedPrefTodoDao(@ApplicationContext context: Context, gson: Gson): TodoDataSource {
+    fun provideSharedPrefTodoDataSource(@ApplicationContext context: Context, gson: Gson): TodoDataSource {
         return SharedPrefTodoDataSource(context, gson)
     }
 

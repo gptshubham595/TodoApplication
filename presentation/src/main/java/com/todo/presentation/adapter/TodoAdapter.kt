@@ -76,7 +76,7 @@ class TodoAdapter :
             if (item != null) {
                 itemRowBinding.titleTextView.text = item.task
                 itemRowBinding.completedCheckBox.isChecked =
-                    item.status == Utils.TodoStatus.COMPLETED
+                    item.status == Utils.TodoStatus.COMPLETED.name
             }
         }
     }

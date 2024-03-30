@@ -39,6 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    kotlin {
+        jvmToolchain(17)
+    }
 
     baselineProfile {
         // Filters the generated profile rules (optional)
@@ -83,8 +86,8 @@ dependencies {
 
     implementation("androidx.security:security-crypto:1.0.0")
 
-    implementation("io.realm.kotlin:library-base:1.5.0")
-    implementation("io.realm.kotlin:gradle-plugin:1.4.0")
+    implementation("io.realm.kotlin:library-base:1.13.0")
+    implementation("io.realm.kotlin:library-sync:1.13.0")
 }
 
 ktlint {

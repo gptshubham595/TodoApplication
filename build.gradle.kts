@@ -7,7 +7,7 @@ plugins {
     id("com.android.library") version "8.1.4" apply false
     id("androidx.baselineprofile") version "1.2.3" // Baseline profile plugin
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0" apply false
-    id("io.realm.kotlin") version "1.4.0" apply true
+    id("io.realm.kotlin") version "1.13.0" apply true
 }
 
 allprojects { // to run the ktlint Format on all modules
@@ -32,5 +32,10 @@ allprojects { // to run the ktlint Format on all modules
         tasks.findByName("preBuild")?.let {
             it.dependsOn("installGitHooks")
         }
+        tasks.withType<JavaCompile>().configureEach {
+            sourceCompatibility = JavaVersion.VERSION_17.toString()
+            targetCompatibility = JavaVersion.VERSION_17.toString()
+        }
+
     }
 }

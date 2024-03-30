@@ -48,12 +48,14 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        buildConfig = true
         dataBinding = true // enable data binding
     }
     buildToolsVersion = "34.0.0"
     ndkVersion = "25.2.9519653"
     flavorDimensions += listOf("Production")
+    kotlin {
+        jvmToolchain(17)
+    }
 }
 
 dependencies {

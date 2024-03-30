@@ -78,8 +78,8 @@ class TodoFragment : Fragment() {
 
     private fun initAdapter() {
         val sampleTodoList = listOf(
-            TodoItem(1, "Buy groceries", Utils.TodoStatus.PENDING),
-            TodoItem(2, "Read a book", Utils.TodoStatus.PENDING)
+            TodoItem(1, "Buy groceries", Utils.TodoStatus.PENDING.name),
+            TodoItem(2, "Read a book", Utils.TodoStatus.PENDING.name)
             // Add more todos as needed
         )
 

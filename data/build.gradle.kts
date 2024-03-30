@@ -9,6 +9,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.baselineprofile")
     id("org.jlleitschuh.gradle.ktlint")
+    id("io.realm.kotlin")
 }
 
 android {
@@ -37,6 +38,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
 
     baselineProfile {
@@ -78,6 +83,10 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.2.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    implementation("io.realm.kotlin:library-base:1.13.0")
+    implementation("io.realm.kotlin:library-sync:1.13.0")
+
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 }
 
