@@ -58,20 +58,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    @RoomDatabaseQualifier
-    fun provideTodoRoomDao(todoRoomDatabase: TodoRoomDatabase): TodoDataSource {
-        return todoRoomDatabase.getTodoDao()
-    }
-
-    @Provides
-    @Singleton
-    @SharedPrefDatabaseQualifier
-    fun provideSharedPrefTodoDataSource(@ApplicationContext context: Context, gson: Gson): TodoDataSource {
-        return SharedPrefTodoDataSource(context, gson)
-    }
-
-    @Provides
-    @Singleton
     fun provideApiInterceptor(): ApiInterceptor {
         return ApiInterceptor()
     }
@@ -94,7 +80,27 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTodoRepository(@RoomDatabaseQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
+    @RoomDatabaseQualifier
+    fun provideTodoRoomDao(todoRoomDatabase: TodoRoomDatabase): TodoDataSource {
+        return todoRoomDatabase.getTodoDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return Gson()
+    }
+
+    @Provides
+    @Singleton
+    @SharedPrefDatabaseQualifier
+    fun provideSharedPrefTodoDataSource(@ApplicationContext context: Context, gson: Gson): TodoDataSource {
+        return SharedPrefTodoDataSource(context, gson)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTodoRepository(@SharedPrefDatabaseQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
         return TodoRepositoryImpl(todoDao, apiInterface)
     }
 

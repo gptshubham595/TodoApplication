@@ -3,7 +3,7 @@ package com.todo.core.repositories
 import com.todo.common.Utils.Either
 import com.todo.core.database.api.ApiInterface
 import com.todo.core.database.interfaces.TodoDataSource
-import com.todo.core.di.qualifier.RoomDatabaseQualifier
+import com.todo.core.di.qualifier.SharedPrefDatabaseQualifier
 import com.todo.core.transformer.toData
 import com.todo.core.transformer.toDomain
 import com.todo.domain.interfaces.repositories.TodoRepository
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class TodoRepositoryImpl @Inject constructor(
-    @RoomDatabaseQualifier private val todoDao: TodoDataSource, // IDatabase
+    @SharedPrefDatabaseQualifier private val todoDao: TodoDataSource, // IDatabase
     private val apiInterface: ApiInterface // IApi
 ) : TodoRepository {
     override suspend fun getTodoList(): Either<Exception, Flow<List<TodoItem>>> {
