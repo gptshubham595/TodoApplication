@@ -1,4 +1,6 @@
 
+import java.io.FileInputStream
+import java.util.Properties
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
@@ -10,6 +12,14 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("org.jlleitschuh.gradle.ktlint")
 }
+
+val keystorePropertiesFile = rootProject.file("secret.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+val keystoreProperties = Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
     namespace = "com.todo.todoapplication"
@@ -25,13 +35,32 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore.jks")
+//            storeFile = file("../todoAppKeyStore")
+//            storePassword = System.getenv("RELEASE_KEYSTORE_ALIAS")
+//            keyAlias = System.getenv("RELEASE_KEYSTORE_ALIAS")
+//            keyPassword = System.getenv("RELEASE_KEYSTORE_ALIAS")
+
+            keyAlias = keystoreProperties.getProperty("key.alias")
+            keyPassword = keystoreProperties.getProperty("key.alias.password")
+            storePassword = keystoreProperties.getProperty("key.store.password")
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
         }
         create("benchmark") {
             initWith(buildTypes.getByName("release"))
@@ -49,6 +78,7 @@ android {
     }
     buildFeatures {
         dataBinding = true // enable data binding
+        buildConfig = true // enable build config
     }
     buildToolsVersion = "34.0.0"
     ndkVersion = "25.2.9519653"

@@ -6,7 +6,7 @@ import com.todo.domain.models.TodoItem
 
 fun TodoItemEntity.toDomain(): TodoItem {
     return TodoItem(
-        id = this.id ?: 0,
+        id = this.id ?: 0L,
         task = this.task ?: "",
         status = this.status ?: Utils.TodoStatus.PENDING.name
     )

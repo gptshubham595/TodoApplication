@@ -46,7 +46,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRealm(@ApplicationContext context: Context): Realm {
+    fun provideRealm(): Realm {
         val realmConfig = RealmConfiguration.Builder(
             schema = setOf(
                 TodoItemEntityRealm::class
