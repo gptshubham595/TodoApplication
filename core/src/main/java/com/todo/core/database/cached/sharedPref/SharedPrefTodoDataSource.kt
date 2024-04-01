@@ -14,7 +14,7 @@ class SharedPrefTodoDataSource @Inject constructor(
     private val gson: Gson
 ) : TodoDataSource {
 
-    // create a encyrpterd shared pref
+    // create a encrypted shared pref
     val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     val sharedPreferences = EncryptedSharedPreferences.create(
         // passing a file name to share a preferences
@@ -52,5 +52,12 @@ class SharedPrefTodoDataSource @Inject constructor(
         val data = gson.toJson(todoItemEntity)
         sharedPreferences.edit().putString(todoItemEntity.id.toString(), data).apply()
         return 1
+    }
+
+    override suspend fun fetchIdTodoItem(todoId: Int): TodoItemEntity? {
+        val todoItem = sharedPreferences.getString(todoId.toString(), null)
+        return todoItem?.let {
+            gson.fromJson(todoItem, TodoItemEntity::class.java)
+        }
     }
 }

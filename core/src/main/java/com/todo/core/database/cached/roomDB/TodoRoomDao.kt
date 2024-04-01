@@ -14,6 +14,9 @@ interface TodoRoomDao : TodoDataSource {
     @Query("Select * from todo_table")
     override suspend fun fetchAllTodoItems(): List<TodoItemEntity>
 
+    @Query("Select * from todo_table where id = :todoId")
+    override suspend fun fetchIdTodoItem(todoId: Int): TodoItemEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     override suspend fun addTodoItem(todoItemEntity: TodoItemEntity): Long
 

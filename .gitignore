@@ -4,6 +4,8 @@
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
+/.idea/gradle.xml
+/.idea/*.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
@@ -14,3 +16,10 @@
 .cxx
 local.properties
 todoAppKeyStore
+*.xml
+.idea
+/.idea
+*.aab
+*.apk
+*.zip
+

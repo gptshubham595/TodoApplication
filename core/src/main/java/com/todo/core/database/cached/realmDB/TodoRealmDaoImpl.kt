@@ -30,4 +30,8 @@ class TodoRealmDaoImpl @Inject constructor(
         update(todoItemEntity.toRealm())
         return 1
     }
+
+    override suspend fun fetchIdTodoItem(todoId: Int): TodoItemEntity? {
+        return findById(todoId.toString())?.toTodoItemEntity()
+    }
 }

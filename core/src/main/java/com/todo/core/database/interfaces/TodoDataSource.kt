@@ -9,4 +9,5 @@ interface TodoDataSource {
     suspend fun deleteTodoItem(todoId: Long): Int
 
     suspend fun updateTodoItem(todoItemEntity: TodoItemEntity): Int
+    suspend fun fetchIdTodoItem(todoId: Int): TodoItemEntity?
 }

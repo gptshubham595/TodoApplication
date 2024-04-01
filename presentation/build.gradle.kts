@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -54,6 +54,14 @@ android {
         buildConfig = true
         dataBinding = true // enable data binding
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+        unitTests.all {
+            it.systemProperty("robolectric.logging.enabled", "false")
+        }
+    }
 }
 
 dependencies {
@@ -81,6 +89,23 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
+
+    implementation("com.squareup.retrofit2:converter-simplexml:2.6.1")
+
+    // Retrofit Mockito: used for mocking Retrofit responses
+    testImplementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    // Mockito: used for mocking objects in tests
+    testImplementation("org.mockito:mockito-core:5.7.0")
+
+    // Robolectric: used for testing Android components without needing a device
+    testImplementation("org.robolectric:robolectric:4.12")
+
+    // Google Truth: used for more readable assertions in tests
+    testImplementation("com.google.truth:truth:1.1.3")
+
+    // livedata testing : used for testing livedata
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation("androidx.fragment:fragment-testing:1.6.2")
 }
 
 ktlint {

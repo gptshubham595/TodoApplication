@@ -49,6 +49,7 @@ jobs:
           base64 -d keystore-b64.txt > keystore.jks
 
       - name: Generate App Version Name
+        id: version
         run: echo "VERSION_NAME=$(git describe --tags | sed 's/\(.*\)-/\1./' | sed 's/\(.*\)-/\1+/')" >> $GITHUB_ENV
 
       - name: Bump Version
@@ -56,23 +57,15 @@ jobs:
         with:
           gradlePath: app/build.gradle.kts
           versionCode: ${{ github.run_number }}
-          versionName: ${{ env.VERSION_NAME }}
+          versionName: ${{ steps.version.outputs.VERSION_NAME }}
 
       - name: Build with Gradle
         run: ./gradlew build
 
       - name: Build Release apk
-        env:
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          RELEASE_KEYSTORE_ALIAS: ${{ secrets.RELEASE_KEYSTORE_ALIAS }}
-          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Build Release bundle
-        env:
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          RELEASE_KEYSTORE_ALIAS: ${{ secrets.RELEASE_KEYSTORE_ALIAS }}
-          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
         run: ./gradlew bundleRelease --stacktrace
 
       - name: Get release file aab path
@@ -89,6 +82,10 @@ jobs:
           files: ${{ steps.releaseAab.outputs.aabfile }} ${{ steps.releaseApk.outputs.apkfile }}
           dest: ${{ steps.releaseApk.outputs.apkfile }}.zip
 
+      - name: Get Zip File
+        id: zipFile
+        run: echo "zipfile=$(find app/build/outputs/apk/release/*.zip)" >> $GITHUB_OUTPUT
+
       # Upload Artifact Build
       # Noted For Output [main_project_module]/build/outputs/apk/debug/
       - name: Upload APK Release
@@ -96,6 +93,8 @@ jobs:
         with:
           name: APK(s) generated
           path: ${{ steps.releaseApk.outputs.apkfile }}
+
+      # Noted For Output [main_project_module]/build/outputs/apk/debug
 
       - name: Upload Reports
         uses: actions/upload-artifact@v3
