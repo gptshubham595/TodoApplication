@@ -8,8 +8,5 @@ class TodoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
-//            Log.d("TodoApplication", "onCreate ${BuildConfig.API_KEY}")
-        }
     }
 }

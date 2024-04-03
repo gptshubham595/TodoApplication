@@ -1,4 +1,4 @@
-package com.todo.core.database.interfaces
+package com.todo.data.interfaces
 
 import com.todo.data.models.TodoItemEntity
 

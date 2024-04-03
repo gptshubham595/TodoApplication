@@ -1,6 +1,6 @@
-package com.todo.core.database.cached.realmDB
+package com.todo.core.database.realmDB
 
-import com.todo.core.database.interfaces.TodoDataSource
+import com.todo.data.interfaces.TodoDataSource
 import com.todo.data.models.TodoItemEntity
 import com.todo.data.models.TodoItemEntityRealm
 import io.realm.kotlin.Realm

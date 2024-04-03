@@ -9,11 +9,11 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 
 @Singleton
-class GetTodoItemsUseCase @Inject constructor(
+class UpdateTodoItemsUseCase @Inject constructor(
     private val todoRepository: TodoRepository
-) : BaseUseCase<Unit, Flow<List<TodoItem>>>() {
-    override suspend fun run(params: Unit): Either<Exception, Flow<List<TodoItem>>> {
+) : BaseUseCase<TodoItem, Flow<Int>>() {
+    override suspend fun run(params: TodoItem): Either<Exception, Flow<Int>> {
         Log.d("GetTodoItemsUseCase", "run: ${System.identityHashCode(this)}")
-        return todoRepository.getTodoList()
+        return todoRepository.updateTodoItem(params)
     }
 }

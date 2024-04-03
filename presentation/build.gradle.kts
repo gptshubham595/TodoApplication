@@ -93,18 +93,19 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-simplexml:2.6.1")
 
     // Retrofit Mockito: used for mocking Retrofit responses
-    testImplementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    androidTestImplementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
     // Mockito: used for mocking objects in tests
-    testImplementation("org.mockito:mockito-core:5.7.0")
+    androidTestImplementation("org.mockito:mockito-core:5.7.0")
 
     // Robolectric: used for testing Android components without needing a device
-    testImplementation("org.robolectric:robolectric:4.12")
+    androidTestImplementation("org.robolectric:robolectric:4.12")
 
     // Google Truth: used for more readable assertions in tests
-    testImplementation("com.google.truth:truth:1.1.3")
+    androidTestImplementation("com.google.truth:truth:1.1.3")
 
     // livedata testing : used for testing livedata
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.fragment:fragment-testing:1.6.2")
 }
 

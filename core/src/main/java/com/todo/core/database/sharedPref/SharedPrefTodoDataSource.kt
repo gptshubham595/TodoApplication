@@ -1,10 +1,10 @@
-package com.todo.core.database.cached.sharedPref
+package com.todo.core.database.sharedPref
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
-import com.todo.core.database.interfaces.TodoDataSource
+import com.todo.data.interfaces.TodoDataSource
 import com.todo.data.models.TodoItemEntity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

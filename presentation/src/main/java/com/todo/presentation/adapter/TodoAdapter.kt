@@ -12,6 +12,7 @@ class TodoAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val todoList = mutableListOf<TodoItem>()
+    private lateinit var listener: TodoListener
 
     fun updateList(list: List<TodoItem>) {
         val diffResult = DiffUtil.calculateDiff(TodoDiffUtils(todoList, list))
@@ -31,8 +32,12 @@ class TodoAdapter :
         diffResult.dispatchUpdatesTo(this)
     }
 
+    fun setListener(listener: TodoListener) {
+        this.listener = listener
+    }
+
     interface TodoListener {
-        fun onTodoItemClick()
+        fun onTodoItemClick(todoItem: TodoItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -77,6 +82,18 @@ class TodoAdapter :
                 itemRowBinding.titleTextView.text = item.task
                 itemRowBinding.completedCheckBox.isChecked =
                     item.status == Utils.TodoStatus.COMPLETED.name
+
+                itemRowBinding.completedCheckBox.setOnClickListener {
+                    val status = if (itemRowBinding.completedCheckBox.isChecked) {
+                        Utils.TodoStatus.COMPLETED.name
+                    } else {
+                        Utils.TodoStatus.PENDING.name
+                    }
+
+                    if (::listener.isInitialized) {
+                        listener?.onTodoItemClick(TodoItem(item.id, item.task, status))
+                    }
+                }
             }
         }
     }

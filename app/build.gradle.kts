@@ -33,6 +33,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR, DEBUGGABLE"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", keystoreProperties.getProperty("API_KEY"))
     }
 
     signingConfigs {
@@ -106,6 +107,9 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
 
     implementation("androidx.profileinstaller:profileinstaller:1.3.1")
+
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
 }
 
 ktlint {

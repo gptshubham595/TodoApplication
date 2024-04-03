@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.todo.domain.models.TodoItem
 import com.todo.domain.usecases.AddTodoItemUseCase
 import com.todo.domain.usecases.GetTodoItemsUseCase
+import com.todo.domain.usecases.UpdateTodoItemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import org.greenrobot.eventbus.EventBus
 @HiltViewModel
 class TodoViewModel @Inject constructor(
     private val getTodoItemsUseCase: GetTodoItemsUseCase,
-    private val addTodoItemUseCase: AddTodoItemUseCase
+    private val addTodoItemUseCase: AddTodoItemUseCase,
+    private val updateTodoItemsUseCase: UpdateTodoItemsUseCase
 ) : ViewModel() {
 
     private val _todoItemsListLiveData = MutableLiveData<List<TodoItem>>()
@@ -39,6 +41,42 @@ class TodoViewModel @Inject constructor(
                                 _todoItemsListLiveData.postValue(it)
                             }
                             EventBus.getDefault().post(DataEvent("hi"))
+                        }
+                    }
+                },
+                onFailure = {
+                }
+            )
+        }
+    }
+
+    fun addTodoItem(todoItem: TodoItem) {
+        viewModelScope.launch {
+            addTodoItemUseCase(
+                scope = this,
+                params = todoItem,
+                onSuccess = {
+                    this.launch {
+                        it.collect {
+                            Log.d("TodoViewModel", "collected addTodoItem: $it")
+                        }
+                    }
+                },
+                onFailure = {
+                }
+            )
+        }
+    }
+
+    fun updateTodoItem(todoItem: TodoItem) {
+        viewModelScope.launch {
+            updateTodoItemsUseCase(
+                scope = this,
+                params = todoItem,
+                onSuccess = {
+                    this.launch {
+                        it.collect {
+                            Log.d("TodoViewModel", "collected updateTodoItem: $it")
                         }
                     }
                 },

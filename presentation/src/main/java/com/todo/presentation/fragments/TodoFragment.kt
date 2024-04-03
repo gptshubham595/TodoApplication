@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 @AndroidEntryPoint
-class TodoFragment : Fragment() {
+class TodoFragment : Fragment(), TodoAdapter.TodoListener {
 
     private val todoViewModel: TodoViewModel by viewModels()
 
@@ -83,6 +83,10 @@ class TodoFragment : Fragment() {
             // Add more todos as needed
         )
 
+//        val sampleUpdateList = TodoItem(3, "Eat FOOD", Utils.TodoStatus.COMPLETED.name)
+//        todoViewModel.addTodoItem(sampleUpdateList)
+
+        adapter.setListener(this)
         adapter.updateList(sampleTodoList)
         binding.todoRecyclerView.adapter = adapter
     }
@@ -157,5 +161,13 @@ class TodoFragment : Fragment() {
         if (::localBroadCast.isInitialized) {
             LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(localBroadCast)
         }
+    }
+
+    override fun onTodoItemClick(todoItem: TodoItem) {
+        updateAnItemInDB(todoItem)
+    }
+
+    private fun updateAnItemInDB(todoItem: TodoItem) {
+        todoViewModel.updateTodoItem(todoItem)
     }
 }

@@ -1,4 +1,4 @@
-package com.todo.core.database.cached.roomDB
+package com.todo.core.database.roomDB
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

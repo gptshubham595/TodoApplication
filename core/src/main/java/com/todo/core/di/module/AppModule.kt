@@ -3,23 +3,21 @@ package com.todo.core.di.module
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+// import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.todo.common.APIConstants.BASE_URl
 import com.todo.common.TODO_DATABASE_NAME
-import com.todo.core.database.api.ApiInterceptor
-import com.todo.core.database.api.ApiInterface
-import com.todo.core.database.cached.realmDB.TodoRealmDaoImpl
-import com.todo.core.database.cached.roomDB.TodoRoomDatabase
-import com.todo.core.database.cached.sharedPref.SharedPrefTodoDataSource
-import com.todo.core.database.interfaces.TodoDataSource
-import com.todo.core.di.qualifier.RealmDBQualifier
+import com.todo.core.database.roomDB.TodoRoomDatabase
 import com.todo.core.di.qualifier.RoomDatabaseQualifier
-import com.todo.core.di.qualifier.SharedPrefDatabaseQualifier
+import com.todo.core.network.api.ApiInterceptor
+import com.todo.core.network.api.ApiService
 import com.todo.core.repositories.TodoRepositoryImpl
+import com.todo.data.interfaces.TodoDataSource
 import com.todo.data.models.TodoItemEntityRealm
 import com.todo.domain.interfaces.repositories.TodoRepository
 import com.todo.domain.usecases.AddTodoItemUseCase
 import com.todo.domain.usecases.GetTodoItemsUseCase
+import com.todo.domain.usecases.UpdateTodoItemsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -66,9 +64,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiInterface(interceptor: ApiInterceptor): ApiInterface {
+    fun provideApiInterface(interceptor: ApiInterceptor, @ApplicationContext context: Context): ApiService {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            //          .addInterceptor(ChuckerInterceptor(context))
             .build()
 
         val retrofit = Retrofit.Builder().baseUrl(BASE_URl)
@@ -76,22 +75,8 @@ object AppModule {
             .client(okHttpClient)
             .build()
         return retrofit.create(
-            ApiInterface::class.java
+            ApiService::class.java
         )
-    }
-
-    @Provides
-    @Singleton
-    @RoomDatabaseQualifier
-    fun provideTodoRoomDao(todoRoomDatabase: TodoRoomDatabase): TodoDataSource {
-        return todoRoomDatabase.getTodoDao()
-    }
-
-    @Provides
-    @Singleton
-    @RealmDBQualifier
-    fun provideRealmDao(todoRealmDaoImpl: TodoRealmDaoImpl): TodoDataSource {
-        return todoRealmDaoImpl
     }
 
     @Provides
@@ -102,31 +87,25 @@ object AppModule {
 
     @Provides
     @Singleton
-    @SharedPrefDatabaseQualifier
-    fun provideSharedPrefTodoDataSource(@ApplicationContext context: Context, gson: Gson): TodoDataSource {
-        return SharedPrefTodoDataSource(context, gson)
+    fun provideTodoRepository(@RoomDatabaseQualifier todoDao: TodoDataSource, apiService: ApiService): TodoRepository {
+        return TodoRepositoryImpl(todoDao, apiService)
     }
 
     @Provides
     @Singleton
-    fun provideTodoRepository(@RoomDatabaseQualifier todoDao: TodoDataSource, apiInterface: ApiInterface): TodoRepository {
-        return TodoRepositoryImpl(todoDao, apiInterface)
+    fun provideGetTodoItemsUseCase(todoRepository: TodoRepository): GetTodoItemsUseCase {
+        return GetTodoItemsUseCase(todoRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetTodoItemsUseCase(todoRepositoryImpl: TodoRepository): GetTodoItemsUseCase {
-        return GetTodoItemsUseCase(todoRepositoryImpl)
+    fun provideUpdateTodoItemsUseCase(todoRepository: TodoRepository): UpdateTodoItemsUseCase {
+        return UpdateTodoItemsUseCase(todoRepository)
     }
 
     @Provides
     @Singleton
-    fun provideAddTodoItemUseCase(todoRepositoryImpl: TodoRepository): AddTodoItemUseCase {
-        return AddTodoItemUseCase(todoRepositoryImpl)
-    }
-
-    @Provides
-    fun providesTodoItemEntityRealm(): TodoItemEntityRealm {
-        return TodoItemEntityRealm(0, "", "")
+    fun provideAddTodoItemUseCase(todoRepository: TodoRepository): AddTodoItemUseCase {
+        return AddTodoItemUseCase(todoRepository)
     }
 }

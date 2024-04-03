@@ -1,4 +1,4 @@
-package com.todo.core.database.cached.realmDB
+package com.todo.core.database.realmDB
 
 import com.todo.data.models.TodoItemEntityRealm
 

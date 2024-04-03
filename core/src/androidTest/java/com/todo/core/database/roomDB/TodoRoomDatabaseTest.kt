@@ -3,7 +3,6 @@ package com.todo.core.database.roomDB
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.todo.common.Utils
-import com.todo.core.database.cached.roomDB.TodoRoomDatabase
 import com.todo.data.models.TodoItemEntity
 import io.realm.kotlin.internal.platform.runBlocking
 import junit.framework.TestCase.assertEquals

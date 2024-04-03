@@ -1,11 +1,11 @@
-package com.todo.core.database.cached.roomDB
+package com.todo.core.database.roomDB
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.todo.core.database.interfaces.TodoDataSource
+import com.todo.data.interfaces.TodoDataSource
 import com.todo.data.models.TodoItemEntity
 
 @Dao

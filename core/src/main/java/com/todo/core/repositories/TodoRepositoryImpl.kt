@@ -1,11 +1,12 @@
 package com.todo.core.repositories
 
+import android.util.Log
 import com.todo.common.Utils.Either
-import com.todo.core.database.api.ApiInterface
-import com.todo.core.database.interfaces.TodoDataSource
 import com.todo.core.di.qualifier.RoomDatabaseQualifier
+import com.todo.core.network.api.ApiService
 import com.todo.core.transformer.toData
 import com.todo.core.transformer.toDomain
+import com.todo.data.interfaces.TodoDataSource
 import com.todo.domain.interfaces.repositories.TodoRepository
 import com.todo.domain.models.TodoItem
 import javax.inject.Inject
@@ -17,21 +18,34 @@ import kotlinx.coroutines.flow.flowOn
 
 class TodoRepositoryImpl @Inject constructor(
     @RoomDatabaseQualifier private val todoDao: TodoDataSource, // IDatabase
-    private val apiInterface: ApiInterface // IApi
+    private val apiService: ApiService // IApi
 ) : TodoRepository {
     override suspend fun getTodoList(): Either<Exception, Flow<List<TodoItem>>> {
         return try {
             val dataFlow = flow {
+                Log.d("ResponseDB", "${todoDao.fetchAllTodoItems().map { it.toDomain() }}")
                 emit(todoDao.fetchAllTodoItems().map { it.toDomain() })
             }.flowOn(Dispatchers.IO)
 
             val apiFlow = flow {
-                emit(apiInterface.getPosts().map { it.toDomain() })
+                val apiResponse: List<TodoItem>? = apiService.getPosts()?.map { it.toDomain() }
+                Log.d("ResponseAPI", "$apiResponse")
+
+                apiResponse?.let {
+                    saveToDB(apiResponse)
+                    emit(apiResponse)
+                }
             }.flowOn(Dispatchers.IO)
 
             Either.Success(dataFlow.combine(apiFlow) { data, apiData -> data + apiData })
         } catch (e: Exception) {
             Either.Error(e)
+        }
+    }
+
+    private suspend fun saveToDB(apiResponse: List<TodoItem>) {
+        apiResponse.forEach {
+            todoDao.addTodoItem(it.toData())
         }
     }
 
