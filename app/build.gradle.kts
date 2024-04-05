@@ -1,16 +1,14 @@
-
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 import java.io.FileInputStream
 import java.util.Properties
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
-    id("org.jlleitschuh.gradle.ktlint")
+    kotlin("android")
+    kotlin("kapt")
+    alias(libs.plugins.ksp.plugin)
+    alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.ktlint.plugin)
 }
 
 val keystorePropertiesFile = rootProject.file("secret.properties")
@@ -23,16 +21,16 @@ keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
     namespace = "com.todo.todoapplication"
-    compileSdk = 34
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
         applicationId = "com.todo.todoapplication"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR, DEBUGGABLE"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = AppConfig.androidTestInstrumentation
         buildConfigField("String", "API_KEY", keystoreProperties.getProperty("API_KEY"))
     }
 
@@ -81,8 +79,9 @@ android {
         dataBinding = true // enable data binding
         buildConfig = true // enable build config
     }
-    buildToolsVersion = "34.0.0"
-    ndkVersion = "25.2.9519653"
+    buildToolsVersion = AppConfig.buildToolsVersion
+    ndkVersion = AppConfig.ndkVersion
+
     flavorDimensions += listOf("Production")
     kotlin {
         jvmToolchain(17)
@@ -90,26 +89,26 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(libs.andrroidXCoreKtx)
+    implementation(libs.appcompat)
 
     implementation(project(":common"))
     implementation(project(":core"))
     implementation(project(":presentation"))
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 
-    implementation("com.google.dagger:hilt-android:2.50")
-    ksp("com.google.dagger:hilt-android-compiler:2.50")
-    ksp("androidx.hilt:hilt-compiler:1.2.0")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.fragment)
 
-    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
+    implementation(libs.profileinstaller)
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
-    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    debugImplementation(libs.leakcanary.android)
+    debugImplementation(libs.chucker.library)
 }
 
 ktlint {

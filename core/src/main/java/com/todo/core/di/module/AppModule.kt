@@ -3,7 +3,7 @@ package com.todo.core.di.module
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-// import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.todo.common.APIConstants.BASE_URl
 import com.todo.common.TODO_DATABASE_NAME
@@ -25,10 +25,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -67,7 +67,7 @@ object AppModule {
     fun provideApiInterface(interceptor: ApiInterceptor, @ApplicationContext context: Context): ApiService {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            //          .addInterceptor(ChuckerInterceptor(context))
+            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .build()
 
         val retrofit = Retrofit.Builder().baseUrl(BASE_URl)

@@ -6,6 +6,7 @@ pluginManagement {
         maven("https://oss.sonatype.org/content/repositories/snapshots")
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -14,7 +15,6 @@ dependencyResolutionManagement {
         maven("https://oss.sonatype.org/content/repositories/snapshots")
     }
 }
-
 rootProject.name = "TodoApplication"
 include(":app")
 include(":macro_benchmark")
@@ -23,4 +23,3 @@ include(":core")
 include(":data")
 include(":domain")
 include(":common")
-include(":testing")

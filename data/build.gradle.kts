@@ -1,25 +1,24 @@
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
-    id("androidx.baselineprofile")
-    id("org.jlleitschuh.gradle.ktlint")
-    id("io.realm.kotlin")
+    alias(libs.plugins.android.library)
+    kotlin("android")
+    kotlin("kapt")
+    alias(libs.plugins.ksp.plugin)
+    alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.baselineprofile.plugin)
+    alias(libs.plugins.ktlint.plugin)
+    alias(libs.plugins.realm.plugin)
 }
 
 android {
     namespace = "com.todo.data"
-    compileSdk = 34
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = AppConfig.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = AppConfig.androidTestInstrumentation
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -55,39 +54,39 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation(libs.andrroidXCoreKtx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
 
     implementation(project(":common"))
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.fragment.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    implementation("com.google.dagger:hilt-android:2.50")
-    ksp("com.google.dagger:hilt-android-compiler:2.50")
-    ksp("androidx.hilt:hilt-compiler:1.2.0")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.fragment)
 
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
-    implementation("org.greenrobot:eventbus:3.2.0")
+    implementation(libs.eventbus)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation(libs.kotlinx.coroutines.core)
 
-    implementation("io.realm.kotlin:library-base:1.13.0")
-    implementation("io.realm.kotlin:library-sync:1.13.0")
+    implementation(libs.library.base)
+    implementation(libs.library.sync)
 
-    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
+    implementation(libs.profileinstaller)
 }
 
 ktlint {

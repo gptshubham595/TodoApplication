@@ -1,13 +1,13 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
 
 plugins {
-    id("com.android.test")
+    alias(libs.plugins.android.test)
     id("org.jetbrains.kotlin.android")
 }
 
 android {
     namespace = "com.todo.benchmark"
-    compileSdk = 34
+    compileSdk = AppConfig.compileSdk
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -27,10 +27,10 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = AppConfig.minSdk
         targetSdk = 34
         testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR, DEBUGGABLE"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = AppConfig.androidTestInstrumentation
     }
 
     buildTypes {
@@ -49,10 +49,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.test.ext:junit:1.1.5")
-    implementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("androidx.test.uiautomator:uiautomator:2.2.0")
-    implementation("androidx.benchmark:benchmark-macro-junit4:1.2.2")
+    implementation(libs.ext.junit)
+    implementation(libs.espresso.core)
+    implementation(libs.androidx.uiautomator)
+    implementation(libs.androidx.benchmark.macro.junit4)
 }
 
 androidComponents {

@@ -1,25 +1,24 @@
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
-    id("androidx.baselineprofile")
-    id("org.jlleitschuh.gradle.ktlint")
-    id("io.realm.kotlin")
+    alias(libs.plugins.android.library)
+    kotlin("android")
+    kotlin("kapt")
+    alias(libs.plugins.ksp.plugin)
+    alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.baselineprofile.plugin)
+    alias(libs.plugins.ktlint.plugin)
+    alias(libs.plugins.realm.plugin)
 }
 
 android {
     namespace = "com.todo.core"
-    compileSdk = 34
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = AppConfig.minSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = AppConfig.androidTestInstrumentation
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -63,66 +62,66 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation(libs.andrroidXCoreKtx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
     api(project(":domain"))
     implementation(project(":data"))
     implementation(project(":common"))
-    implementation("androidx.test.ext:junit-ktx:1.1.5")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.androidx.junit.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.fragment.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.converter.gson)
 
-    implementation("com.google.dagger:hilt-android:2.50")
-    ksp("com.google.dagger:hilt-android-compiler:2.50")
-    ksp("androidx.hilt:hilt-compiler:1.2.0")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.fragment)
 
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
-    implementation("org.greenrobot:eventbus:3.2.0")
+    implementation(libs.eventbus)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.profileinstaller)
 
-    implementation("androidx.security:security-crypto:1.0.0")
+    implementation(libs.androidx.security.crypto)
 
-    implementation("io.realm.kotlin:library-base:1.13.0")
-    implementation("io.realm.kotlin:library-sync:1.13.0")
+    implementation(libs.library.base)
+    implementation(libs.library.sync)
 
-    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    debugImplementation(libs.chucker.library)
+    debugImplementation(libs.chucker.library.no.op)
 
     // Room Database Testing: used for testing Room database
-    testImplementation("androidx.room:room-testing:2.6.1")
-    androidTestImplementation("androidx.room:room-testing:2.6.1")
+    testImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.room.room.testing)
 
-    implementation("com.squareup.retrofit2:converter-simplexml:2.6.1")
+    implementation(libs.converter.simplexml)
 
     // Retrofit Mockito: used for mocking Retrofit responses
-    androidTestImplementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
-    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    androidTestImplementation(libs.retrofit.mock)
+    androidTestImplementation(libs.mockwebserver)
 
     // Mockito: used for mocking objects in tests
-    androidTestImplementation("org.mockito:mockito-core:5.7.0")
+    androidTestImplementation(libs.mockito.core)
 
     // Robolectric: used for testing Android components without needing a device
-    androidTestImplementation("org.robolectric:robolectric:4.12")
+    androidTestImplementation(libs.robolectric)
 
     // Google Truth: used for more readable assertions in tests
-    androidTestImplementation("com.google.truth:truth:1.1.3")
+    androidTestImplementation(libs.truth)
 
     // livedata testing : used for testing livedata
-    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
-    androidTestImplementation("androidx.fragment:fragment-testing:1.6.2")
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.androidx.fragment.testing)
 }
 
 ktlint {
