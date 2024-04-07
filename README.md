@@ -2,7 +2,8 @@
 
 ## Retrofit + RoomDB+RealmDB+EncryptedSharedPref + Hilt + Flow + MulitModular + Clean Arch + MVVM
 
-<img width="1366" alt="Screenshot 2024-03-31 at 2 47 10 AM" src="https://github.com/gptshubham595/TodoApplication/assets/24877361/a9b9b63d-f804-48e9-b684-833f06934102">
+<img width="1495" alt="Screenshot 2024-04-07 at 3 36 03 PM" src="https://github.com/gptshubham595/TodoApplication/assets/24877361/8458a7d6-12a0-49d2-b9d1-840423a83f33">
+
 
 ## Benchmarking 
 - https://medium.com/@gptshubham595/boosting-your-android-apps-performance-a-guide-to-macrobenchmarking-baseline-profiles-and-61969eff910c
