@@ -78,21 +78,19 @@ class TodoAdapter :
         RecyclerView.ViewHolder(itemView.root) {
         private var itemRowBinding = itemView
         fun bind(item: TodoItem) {
-            if (item != null) {
-                itemRowBinding.titleTextView.text = item.task
-                itemRowBinding.completedCheckBox.isChecked =
-                    item.status == Utils.TodoStatus.COMPLETED.name
+            itemRowBinding.titleTextView.text = item.task
+            itemRowBinding.completedCheckBox.isChecked =
+                item.status == Utils.TodoStatus.COMPLETED.name
 
-                itemRowBinding.completedCheckBox.setOnClickListener {
-                    val status = if (itemRowBinding.completedCheckBox.isChecked) {
-                        Utils.TodoStatus.COMPLETED.name
-                    } else {
-                        Utils.TodoStatus.PENDING.name
-                    }
+            itemRowBinding.completedCheckBox.setOnClickListener {
+                val status = if (itemRowBinding.completedCheckBox.isChecked) {
+                    Utils.TodoStatus.COMPLETED.name
+                } else {
+                    Utils.TodoStatus.PENDING.name
+                }
 
-                    if (::listener.isInitialized) {
-                        listener?.onTodoItemClick(TodoItem(item.id, item.task, status))
-                    }
+                if (::listener.isInitialized) {
+                    listener?.onTodoItemClick(TodoItem(item.id, item.task, status))
                 }
             }
         }

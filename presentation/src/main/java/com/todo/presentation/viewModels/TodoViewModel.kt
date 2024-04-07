@@ -37,7 +37,7 @@ class TodoViewModel @Inject constructor(
                     this.launch {
                         it.collect {
                             Log.d("TodoViewModel", "collected getTodoItems: $it")
-                            if ((it?.size ?: 0) > 0L) {
+                            if ((it.size ?: 0) > 0L) {
                                 _todoItemsListLiveData.postValue(it)
                             }
                             EventBus.getDefault().post(DataEvent("hi"))

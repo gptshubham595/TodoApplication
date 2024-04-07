@@ -1,6 +1,6 @@
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 import java.io.FileInputStream
 import java.util.Properties
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
     id("com.android.application")
@@ -36,8 +36,8 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("../keystore.jks")
-//            storeFile = file("../todoAppKeyStore")
+//            storeFile = file("../keystore.jks")
+            storeFile = file(keystoreProperties.getProperty("key.store"))
 //            storePassword = System.getenv("RELEASE_KEYSTORE_ALIAS")
 //            keyAlias = System.getenv("RELEASE_KEYSTORE_ALIAS")
 //            keyPassword = System.getenv("RELEASE_KEYSTORE_ALIAS")
@@ -108,7 +108,6 @@ dependencies {
     implementation(libs.profileinstaller)
 
     debugImplementation(libs.leakcanary.android)
-    debugImplementation(libs.chucker.library)
 }
 
 ktlint {
@@ -120,12 +119,7 @@ ktlint {
     outputColorName.set("RED")
     ignoreFailures.set(true)
     enableExperimentalRules.set(true)
-    additionalEditorconfig.set( // not supported until ktlint 0.49
-        mapOf(
-            "max_line_length" to "20"
-        )
-    )
-    disabledRules.set(setOf("final-newline")) // not supported with ktlint 0.48+
+
     baseline.set(file("$projectDir/config/ktlint-baseline.xml"))
     reporters {
         reporter(ReporterType.PLAIN)

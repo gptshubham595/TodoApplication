@@ -20,6 +20,9 @@ android {
 
         testInstrumentationRunner = AppConfig.androidTestInstrumentation
         consumerProguardFiles("consumer-rules.pro")
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     buildTypes {
@@ -94,11 +97,11 @@ dependencies {
 
     implementation(libs.androidx.security.crypto)
 
-    implementation(libs.library.base)
-    implementation(libs.library.sync)
+    implementation(libs.realm.library.base)
+    implementation(libs.realm.library.sync)
 
     debugImplementation(libs.chucker.library)
-    debugImplementation(libs.chucker.library.no.op)
+    releaseImplementation(libs.chucker.library.no.op)
 
     // Room Database Testing: used for testing Room database
     testImplementation(libs.androidx.room.testing)
@@ -133,12 +136,7 @@ ktlint {
     outputColorName.set("RED")
     ignoreFailures.set(true)
     enableExperimentalRules.set(true)
-    additionalEditorconfig.set( // not supported until ktlint 0.49
-        mapOf(
-            "max_line_length" to "20"
-        )
-    )
-    disabledRules.set(setOf("final-newline")) // not supported with ktlint 0.48+
+
     baseline.set(file("$projectDir/config/ktlint-baseline.xml"))
     reporters {
         reporter(ReporterType.PLAIN)

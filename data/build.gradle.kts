@@ -83,8 +83,8 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.core)
 
-    implementation(libs.library.base)
-    implementation(libs.library.sync)
+    implementation(libs.realm.library.base)
+    implementation(libs.realm.library.sync)
 
     implementation(libs.profileinstaller)
 }
@@ -98,12 +98,7 @@ ktlint {
     outputColorName.set("RED")
     ignoreFailures.set(true)
     enableExperimentalRules.set(true)
-    additionalEditorconfig.set( // not supported until ktlint 0.49
-        mapOf(
-            "max_line_length" to "20"
-        )
-    )
-    disabledRules.set(setOf("final-newline")) // not supported with ktlint 0.48+
+
     baseline.set(file("$projectDir/config/ktlint-baseline.xml"))
     reporters {
         reporter(ReporterType.PLAIN)

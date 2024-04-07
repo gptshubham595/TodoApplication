@@ -42,7 +42,7 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
 //    private val todoViewModel2: TodoViewModel2 by activityViewModels()
     private lateinit var binding: FragmentTodoBinding
     private lateinit var localBroadCast: LocalBroadCast
-    private val sampleEventBus = SampleEventBus()
+    private val sampleEventBus = SampleEventBus<MessageEvent>()
 
     private val adapter: TodoAdapter by lazy { TodoAdapter() }
 
@@ -105,6 +105,7 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
     }
 
     private fun showToast(it: MessageEvent) {
+        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun initBroadCast() {
