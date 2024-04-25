@@ -8,9 +8,11 @@ plugins {
     alias(libs.plugins.baselineprofile.plugin) // Baseline profile plugin
     alias(libs.plugins.ktlint.plugin) apply false
     alias(libs.plugins.realm.plugin) apply true
+    alias(libs.plugins.dependency.analysis)
 }
 
-allprojects { // to run the ktlint Format on all modules
+allprojects {
+    apply(plugin = "com.autonomousapps.dependency-analysis")
     tasks.register("copyGitHooks", Copy::class) {
         description = "Copies the git hooks from /git-hooks to the .git folder."
         group = "git hooks"

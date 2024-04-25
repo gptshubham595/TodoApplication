@@ -11,6 +11,11 @@ import com.todo.domain.usecases.GetTodoItemsUseCase
 import com.todo.domain.usecases.UpdateTodoItemsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
@@ -24,6 +29,12 @@ class TodoViewModel @Inject constructor(
     private val _todoItemsListLiveData = MutableLiveData<List<TodoItem>>()
     val todoItemsListLiveData = _todoItemsListLiveData as LiveData<List<TodoItem>>
 
+    private val mutableStateFlow = MutableStateFlow(0)
+    val stateFlow: StateFlow<Int> = mutableStateFlow
+
+    val mutableSharedFlow = MutableSharedFlow<Int>()
+    val sharedFlow: SharedFlow<Int> = mutableSharedFlow
+
     init {
         Log.d("viewModel1", "${System.identityHashCode(getTodoItemsUseCase)}")
     }
@@ -36,6 +47,7 @@ class TodoViewModel @Inject constructor(
                 onSuccess = {
                     this.launch {
                         it.collect {
+                            Log.d("TodoViewModel", "collector 1 $it")
                             Log.d("TodoViewModel", "collected getTodoItems: $it")
                             if ((it.size ?: 0) > 0L) {
                                 _todoItemsListLiveData.postValue(it)
@@ -47,6 +59,15 @@ class TodoViewModel @Inject constructor(
                 onFailure = {
                 }
             )
+
+// Update the state
+            launch {
+                repeat(3) { i ->
+                    delay(1000)
+                    mutableStateFlow.value = i
+                    mutableSharedFlow.emit(i)
+                }
+            }
         }
     }
 

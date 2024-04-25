@@ -12,9 +12,11 @@ import com.todo.domain.models.TodoItem
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
 
 class TodoRepositoryImpl @Inject constructor(
     @RoomDatabaseQualifier private val todoDao: TodoDataSource, // IDatabase
@@ -25,13 +27,16 @@ class TodoRepositoryImpl @Inject constructor(
             val dataFlow = flow {
                 Log.d("ResponseDB", "${todoDao.fetchAllTodoItems().map { it.toDomain() }}")
                 emit(todoDao.fetchAllTodoItems().map { it.toDomain() })
-            }.flowOn(Dispatchers.IO)
+            }.catch { e ->
+            }.flowOn(Dispatchers.IO).onCompletion {
+                Log.d("ResponseDB", "onCompletion")
+            }
 
             val apiFlow = flow {
-                val apiResponse: List<TodoItem>? = apiService.getPosts()?.map { it.toDomain() }
+                val apiResponse: List<TodoItem> = apiService.getPosts().map { it.toDomain() }
                 Log.d("ResponseAPI", "$apiResponse")
 
-                apiResponse?.let {
+                apiResponse.let {
                     saveToDB(apiResponse)
                     emit(apiResponse)
                 }

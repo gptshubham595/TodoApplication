@@ -10,11 +10,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.todo.common.EXTRA_GLOBAL_TODO_ACTION
 import com.todo.common.EXTRA_LOCAL_TODO_ACTION
 import com.todo.common.GLOBAL_TODO_ACTION
-import com.todo.common.LOCAL_TODO_ACTION
+import com.todo.common.LOCAL_TODO_ACTION1
+import com.todo.common.LOCAL_TODO_ACTION2
 import com.todo.common.Utils
 import com.todo.common.helper.MessageEvent
 import com.todo.common.helper.SampleEventBus
@@ -27,8 +32,11 @@ import com.todo.presentation.databinding.FragmentTodoBinding
 import com.todo.presentation.viewModels.ModelClass
 import com.todo.presentation.viewModels.TodoViewModel
 import com.todo.presentation.viewModels.TodoViewModel.Companion.DataEvent
+import com.todo.presentation.viewModels.TodoViewModel2
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -38,10 +46,19 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
 
     private val todoViewModel: TodoViewModel by viewModels()
 
-    //    private val todoViewModel2: TodoViewModel2 by viewModels()
+    private lateinit var todoViewModel2: TodoViewModel2
+
 //    private val todoViewModel2: TodoViewModel2 by activityViewModels()
     private lateinit var binding: FragmentTodoBinding
-    private lateinit var localBroadCast: LocalBroadCast
+    private val localBroadCast: LocalBroadCast by lazy {
+        LocalBroadCast(object : TodoBroadCastListener {
+            override fun onLocalTodoReceived(message: String?) {
+                message?.let {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
     private val sampleEventBus = SampleEventBus<MessageEvent>()
 
     private val adapter: TodoAdapter by lazy { TodoAdapter() }
@@ -60,6 +77,8 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
         super.onViewCreated(view, savedInstanceState)
 
         todoViewModel.getTodoItems()
+        todoViewModel2 = ViewModelProvider(requireActivity()).get(TodoViewModel2::class.java)
+
 //        todoViewModel2.getTodoItems()
 //        modelClass.getTodoItems()
 
@@ -109,19 +128,22 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
     }
 
     private fun initBroadCast() {
-        localBroadCast = LocalBroadCast(object : TodoBroadCastListener {
-            override fun onLocalTodoReceived(message: String?) {
-                message?.let {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+//        localBroadCast = LocalBroadCast(object : TodoBroadCastListener {
+//            override fun onLocalTodoReceived(message: String?) {
+//                message?.let {
+//                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
 
-        if (::localBroadCast.isInitialized) {
-            val localFilter = IntentFilter(LOCAL_TODO_ACTION)
-            LocalBroadcastManager.getInstance(requireContext())
-                .registerReceiver(localBroadCast, localFilter)
+//        if (::localBroadCast.isInitialized) {
+        val localFilter = IntentFilter().apply {
+            addAction(LOCAL_TODO_ACTION1)
+            addAction(LOCAL_TODO_ACTION2)
         }
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(localBroadCast, localFilter)
+//        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -139,15 +161,44 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
             Toast.makeText(requireContext(), it?.get(0)?.task, Toast.LENGTH_SHORT).show()
             // send broadcast
             Log.d("LocalBroadcast", "Firing Local Broadcast")
-            val localIntentFilter = Intent(LOCAL_TODO_ACTION)
-            localIntentFilter.putExtra(EXTRA_LOCAL_TODO_ACTION, it[0].task)
+            val localIntentFilter = Intent(LOCAL_TODO_ACTION1)
+            localIntentFilter.putExtra(EXTRA_LOCAL_TODO_ACTION, "Local: ${it[0].task}")
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(localIntentFilter)
 
             val globalIntent = Intent(GLOBAL_TODO_ACTION)
-            globalIntent.putExtra(EXTRA_GLOBAL_TODO_ACTION, it[0].task)
+            globalIntent.putExtra(EXTRA_GLOBAL_TODO_ACTION, "Global: ${it[0].task}")
             requireActivity().sendBroadcast(globalIntent)
 
             sampleEventBus.post(MessageEvent(it[0].task))
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Collect values from stateFlow
+                launch {
+                    todoViewModel.sharedFlow.collect { value ->
+                        Log.d("SharedFlow", "Collector 1 received: $value")
+                    }
+                }
+                launch {
+                    todoViewModel.stateFlow.collect { value ->
+                        Log.d("StateFlow", "Collector 1 received: $value")
+                    }
+                }
+// Collect values from stateFlow
+                launch {
+                    delay(2000)
+                    todoViewModel.sharedFlow.collect { value ->
+                        Log.d("SharedFlow", "Collector 2 received: $value")
+                    }
+                }
+                launch {
+                    delay(2000)
+                    todoViewModel.stateFlow.collect { value ->
+                        Log.d("Stateflow", "Collector 2 received: $value")
+                    }
+                }
+            }
         }
     }
 
@@ -159,9 +210,9 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (::localBroadCast.isInitialized) {
-            LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(localBroadCast)
-        }
+//        if (::localBroadCast.isInitialized) {
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(localBroadCast)
+//        }
     }
 
     override fun onTodoItemClick(todoItem: TodoItem) {

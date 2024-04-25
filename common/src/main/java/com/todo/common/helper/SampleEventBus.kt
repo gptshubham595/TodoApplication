@@ -7,7 +7,7 @@ class SampleEventBus<T> {
     private val subscribers = mutableMapOf<Class<T>, MutableList<(T) -> Unit>>()
 
     fun register(eventType: Class<T>, subscriber: (T) -> Unit) {
-        subscribers.getOrPut(eventType, { mutableListOf() }).add(subscriber)
+        subscribers.getOrPut(eventType) { mutableListOf() }.add(subscriber)
     }
 
     fun unregister(eventType: Class<T>, subscriber: (T) -> Unit) {

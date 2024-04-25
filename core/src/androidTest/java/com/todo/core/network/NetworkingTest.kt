@@ -69,18 +69,14 @@ class NetworkingTest {
         // Add test case to verify the response body
         val mockResponse = MockResponse()
             .setBody(
-                "[" +
-                    "{\"userId\" : 1, \"id\" : 1, \"title\" : \"delectus aut autem\", \"body\" : \"hi\"}" +
-                    "{\"userId\" : 1, \"id\" : 2, \"title\" : \"delectus aut autem\", \"body\" : \"hi\"}" +
-                    "{\"userId\" : 1, \"id\" : 3, \"title\" : \"delectus aut autem\", \"body\" : \"hi\"}" +
-                    "]"
+                "[]"
             )
         mockWebServer.enqueue(mockResponse)
 
         val response = apiService.getPosts()
         mockWebServer.takeRequest()
 
-//        assertEquals(true, response.isSuccess)
+        assertEquals(true, response.isEmpty())
     }
 
     // Add more test cases as needed to cover different scenarios
