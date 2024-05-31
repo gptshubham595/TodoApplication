@@ -112,4 +112,9 @@ class TodoViewModel @Inject constructor(
 
         class DataEvent(val data: String)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("TodoViewModel1", "onCleared")
+    }
 }

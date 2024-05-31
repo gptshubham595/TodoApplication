@@ -2,9 +2,9 @@ package com.todo.common.helper.observerpattern.observer
 
 import android.util.Log
 
-class EmailReactionAlertObserver constructor(
+class EmailProfileAlertObserver constructor(
     email: String
-) : NotificationReactionAlertObserver {
+) : NotifyProfileObserver {
 
     private var email: String? = email
 

@@ -15,7 +15,34 @@ class LRUCache<K, V>(private val capacity: Int) {
         cache[key] = value
     }
 }
+class LRU(private val cap: Int) {
+    val cache: MutableMap<Int, Int> = mutableMapOf()
+    val accessOrder: MutableList<Int> = mutableListOf() // index -> keys
 
+    fun get(key: Int): Int {
+        return cache[key]?.also {
+            updateAccessOrder(key)
+        } ?: -1
+    }
+
+    fun updateAccessOrder(key: Int) {
+        accessOrder.remove(key)
+        accessOrder.add(key)
+    }
+
+    fun put(key: Int, value: Int) {
+        if (cache.size >= cap) {
+            evict()
+        }
+        cache[key] = value
+        updateAccessOrder(key)
+    }
+
+    fun evict() {
+        val accessOrderKey = accessOrder.removeAt(0)
+        cache.remove(accessOrderKey)
+    }
+}
 class LRUCache2<K, V>(private val capacity: Int) {
     private val cache: MutableMap<K, V> = mutableMapOf()
     private val accessOrder: MutableList<K> = mutableListOf() // index -> keys
@@ -93,27 +120,29 @@ class LRUCache4<K, V>(private val capacity: Int) : LinkedHashMap<K, V>() {
 
 class LRUCache5<K, V>(private val capacity: Int) {
     private val cache: MutableMap<K, V> = mutableMapOf()
-    private val accessOrder = mutableListOf<K>()
+    private val accessOrder: MutableList<K> = mutableListOf()
 
-    fun insert(k: K, v: V) {
+    fun get(key: K): V? {
+        return cache[key]?.also {
+            updateAccessOrder(key)
+        }
+    }
+
+    private fun updateAccessOrder(key: K) {
+        accessOrder.remove(key)
+        accessOrder.add(key)
+    }
+
+    fun put(key: K, value: V) {
         if (cache.size >= capacity) {
             evict()
         }
-        cache[k] = v
-        updateAccessOrder(k)
+        cache[key] = value
+        updateAccessOrder(key)
     }
 
-    fun updateAccessOrder(k: K) {
-        accessOrder.remove(k)
-        accessOrder.add(k)
-    }
-
-    fun evict() {
+    private fun evict() {
         val accessOrderKey = accessOrder.removeAt(0)
         cache.remove(accessOrderKey)
-    }
-
-    fun getVal(k: K): V? {
-        return cache[k]?.also { updateAccessOrder(k) }
     }
 }

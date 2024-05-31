@@ -5,8 +5,8 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.todo.presentation.R
 import com.todo.presentation.databinding.ActivityMainBinding
 import com.todo.presentation.fragments.TodoFragment
 import com.todo.presentation.service.BasicService
@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var basicService: BasicService
+
+//    private lateinit var navController: NavController
 
     private var isServiceBound = false
     private val serviceConnection = object : ServiceConnection {
@@ -30,6 +32,11 @@ class MainActivity : AppCompatActivity() {
             isServiceBound = false
         }
     }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        navController = findNavController(binding.navHostFragment)
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +54,28 @@ class MainActivity : AppCompatActivity() {
     private fun initFragments() {
         val todoFragment = TodoFragment()
         val transactionManager = supportFragmentManager.beginTransaction()
-        transactionManager.add(R.id.fragmentContainer, todoFragment)
+        transactionManager.add(binding.navHostFragment.id, todoFragment)
         transactionManager.addToBackStack("TODO_FRAGMENT")
         transactionManager.commit()
     }
 
+    override fun onRetainCustomNonConfigurationInstance(): Any? {
+        return super.onRetainCustomNonConfigurationInstance()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("MainActivity", "onSaveInstanceState")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.d("MainActivity", "onRestoreInstanceState")
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("MainActivity", "onDestroy")
         if (isServiceBound) {
             unbindService(serviceConnection)
             isServiceBound = false

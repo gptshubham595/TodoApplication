@@ -1,17 +1,18 @@
 package com.todo.common.helper.observerpattern
 
 import com.todo.common.helper.observerpattern.observeable.PostObservable
-import com.todo.common.helper.observerpattern.observer.EmailReactionAlertObserver
-import com.todo.common.helper.observerpattern.observer.NotificationReactionAlertObserver
+import com.todo.common.helper.observerpattern.observer.EmailProfileAlertObserver
+import com.todo.common.helper.observerpattern.observer.NotifyProfileObserver
+import com.todo.common.helper.observerpattern.observer.SMSProfileAlertObserver
 
 class Profile {
 
-    private val postObservable = PostObservable<NotificationReactionAlertObserver>()
+    private val postObservable = PostObservable<NotifyProfileObserver>()
 
-    private val observer1: NotificationReactionAlertObserver =
-        EmailReactionAlertObserver("a@gmail.com")
-    private val observer2: NotificationReactionAlertObserver =
-        EmailReactionAlertObserver("b@gmail.com")
+    private val observer1: NotifyProfileObserver =
+        EmailProfileAlertObserver("a@gmail.com")
+    private val observer2: NotifyProfileObserver =
+        SMSProfileAlertObserver("8923749878")
 
     fun addObserver() {
         postObservable.addObserver(observer1)

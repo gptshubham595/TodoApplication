@@ -56,7 +56,11 @@ class TodoRepositoryImpl @Inject constructor(
 
     override suspend fun addTodoItem(todoItem: TodoItem): Either<Exception, Flow<Long>> {
         return try {
-            Either.Success(flow { emit(todoDao.addTodoItem(todoItem.toData())) }.flowOn(Dispatchers.IO))
+            Either.Success(
+                flow {
+                    emit(todoDao.addTodoItem(todoItem.toData()))
+                }.flowOn(Dispatchers.IO)
+            )
         } catch (e: Exception) {
             Either.Error(e)
         }

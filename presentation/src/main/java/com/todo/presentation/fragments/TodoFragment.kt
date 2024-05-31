@@ -70,12 +70,13 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
         super.onCreateView(inflater, container, savedInstanceState)
         val layout = inflater.inflate(R.layout.fragment_todo, container, false)
         binding = FragmentTodoBinding.bind(layout)
+        Log.d("TodoFragment", "onCreateView")
         return layout
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("TodoFragment", "onViewCreated")
         todoViewModel.getTodoItems()
         todoViewModel2 = ViewModelProvider(requireActivity()).get(TodoViewModel2::class.java)
 
@@ -144,6 +145,9 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
         LocalBroadcastManager.getInstance(requireContext())
             .registerReceiver(localBroadCast, localFilter)
 //        }
+
+//        val globalBroadCastReceiver = GlobalBroadCastReceiver()
+//        requireContext().registerReceiver(globalBroadCastReceiver, IntentFilter(GLOBAL_TODO_ACTION), Context.RECEIVER_EXPORTED)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -202,6 +206,11 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
         }
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.d("TodoFragment", "onViewStateRestored")
+    }
+
     override fun onStop() {
         super.onStop()
         sampleEventBus.unregister(MessageEvent::class.java) {}
@@ -210,6 +219,7 @@ class TodoFragment : Fragment(), TodoAdapter.TodoListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("TodoFragment", "onDestroy")
 //        if (::localBroadCast.isInitialized) {
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(localBroadCast)
 //        }

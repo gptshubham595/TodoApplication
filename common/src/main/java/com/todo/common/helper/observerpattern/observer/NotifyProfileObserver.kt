@@ -1,5 +1,5 @@
 package com.todo.common.helper.observerpattern.observer
 
-interface NotificationReactionAlertObserver {
+interface NotifyProfileObserver {
     fun update()
 }

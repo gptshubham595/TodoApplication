@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.baselineprofile.plugin)
     kotlin("android")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
     alias(libs.plugins.ksp.plugin)
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.ktlint.plugin)
@@ -106,6 +107,9 @@ dependencies {
     // livedata testing : used for testing livedata
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.fragment.testing)
+
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 }
 
 ktlint {

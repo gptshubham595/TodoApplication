@@ -107,7 +107,7 @@ dependencies {
 
     implementation(libs.profileinstaller)
 
-    debugImplementation(libs.leakcanary.android)
+//    debugImplementation(libs.leakcanary.android)
 }
 
 ktlint {

@@ -26,6 +26,11 @@ class TodoViewModel2 @Inject constructor(
         Log.d("viewModel2", "${System.identityHashCode(getTodoItemsUseCase)}")
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("TodoViewModel2", "onCleared")
+    }
+
     fun getTodoItems() {
         viewModelScope.launch {
             getTodoItemsUseCase(

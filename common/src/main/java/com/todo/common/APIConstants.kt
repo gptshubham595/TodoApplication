@@ -14,4 +14,11 @@ object APIConstants {
         @SerializedName("data")
         val data: T
     )
+
+    val a = GenericResponse<Int>(
+        status = 200,
+        data = 1
+    )
+
+    val k = a.hashCode()
 }

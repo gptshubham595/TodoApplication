@@ -7,8 +7,9 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.baselineprofile.plugin) // Baseline profile plugin
     alias(libs.plugins.ktlint.plugin) apply false
-    alias(libs.plugins.realm.plugin) apply true
+    alias(libs.plugins.realm.plugin)
     alias(libs.plugins.dependency.analysis)
+    alias(libs.plugins.navgraph.safearg.plugin) apply false
 }
 
 allprojects {
